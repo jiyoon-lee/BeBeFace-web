@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import styled from "styled-components";
 import Text from "@/components/atoms/Text";

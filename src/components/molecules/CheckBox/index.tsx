@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import {

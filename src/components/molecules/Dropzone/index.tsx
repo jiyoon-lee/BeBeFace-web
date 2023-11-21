@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import { CloudUploadIcon } from "@/components/atoms/IconButton";

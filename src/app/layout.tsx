@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
 import "./globals.css";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import "../../public/mainPageStyle/css/style.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,11 +16,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script defer src="/mainPageStyle/js/ie.js"></script>
+      </head>
       <body>
-        <header>
+        <div className="antialiased dark:bg-gray-900 flex flex-col h-full">
           <Navbar />
-        </header>
-        <main>{children}</main>
+          <main className="p-10 h-auto pt-20 grow">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

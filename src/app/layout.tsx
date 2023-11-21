@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
-import SWRConfigContext from "@/contexts/SWRConfigContext";
+import Navbar from "@/components/Navbar";
 import "./globals.css";
-
-const openSans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,18 +14,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <meta key="charset" name="charset" content="utf-8" />
-      <meta
-        key="viewport"
-        name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=5"
-      />
-      <meta property="og:locale" content="ja_KR" />
-      <meta property="og:type" content="website" />
-      <body className={openSans.className}>
-        <main className="w-full flex justify-center max-w-screen-xl mx-auto">
-          <SWRConfigContext>{children}</SWRConfigContext>
-        </main>
+      <body>
+        <header>
+          <Navbar />
+        </header>
+        <main>{children}</main>
       </body>
     </html>
   );

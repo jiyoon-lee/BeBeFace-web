@@ -91,6 +91,7 @@ export default function TestApi() {
         >
           logout
         </button>
+        <p>프록시 설정완료</p>
       </div>
     </>
   );

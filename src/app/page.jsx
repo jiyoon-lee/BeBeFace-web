@@ -7,6 +7,7 @@ import man from "../../public/mainPageStyle/img/man.png";
 import sun from "../../public/mainPageStyle/img/sun.png";
 import town_day from "../../public/mainPageStyle/img/town_day.png";
 import town_night from "../../public/mainPageStyle/img/town_night.png";
+import TestApi from "@/components/TestApi";
 export default function HomePage() {
   return (
     <>
@@ -29,6 +30,7 @@ export default function HomePage() {
           <Image src={family} className="family" alt="" />
         </article>
       </section>
+      <TestApi />
     </>
   );
 }

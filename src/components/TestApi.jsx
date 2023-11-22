@@ -70,6 +70,27 @@ export default function TestApi() {
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
   };
+
+  const oauthNoHeader = () => {
+    fetch("http://localhost:8080/login/oauth2/code/kakao", {
+      method: "POST",
+    })
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  };
+
+  const oauthHaveHeader = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    fetch("http://localhost:8080/login/oauth2/code/kakao", {
+      method: "POST",
+      headers: myHeaders,
+    })
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  };
   return (
     <>
       <div className="absolute">
@@ -90,6 +111,18 @@ export default function TestApi() {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           logout
+        </button>
+        <button
+          onClick={oauthNoHeader}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          oauthNoHeader
+        </button>
+        <button
+          onClick={oauthHaveHeader}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          oauthHaveHeader
         </button>
         <p>프록시 설정완료</p>
       </div>

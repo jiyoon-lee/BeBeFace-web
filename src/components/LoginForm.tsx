@@ -8,11 +8,11 @@ type FormData = {
   password: string;
 };
 
-type Props = {
-  onSignin: (error?: Error) => void;
-};
-export default function LoginForm({ onSignin }: Props) {
-  const { signin } = useAuthContext();
+// type Props = {
+//   onSignin: (error?: Error) => void;
+// };
+export default function LoginForm() {
+  // const { signin } = useAuthContext();
   const {
     register,
     handleSubmit,

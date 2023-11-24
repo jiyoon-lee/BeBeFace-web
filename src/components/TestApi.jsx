@@ -53,20 +53,22 @@ export default function TestApi() {
   };
 
   const logout = () => {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Cache-Control", "no-store");
-
     var raw = JSON.stringify({
       email: "junho5336@gmail.com",
       password: "password",
     });
 
     var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
+      method: "POST", // *GET, POST, PUT, DELETE 등
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: raw,
       redirect: "follow",
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     };
 
     fetch("http://localhost:8080/logout", requestOptions)

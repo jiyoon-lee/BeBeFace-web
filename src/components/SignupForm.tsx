@@ -1,5 +1,6 @@
 "use client";
 import { Button, Label, TextInput } from "flowbite-react";
+import { redirect } from "next/navigation";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
@@ -26,7 +27,9 @@ export default function SignupForm() {
       redirect: "follow",
     })
       .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then(() => {
+        redirect("/");
+      })
       .catch((error) => console.log("error", error));
   };
   return (

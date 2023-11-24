@@ -20,7 +20,7 @@ export default function SignupForm() {
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    fetch("http://localhost:8080/register", {
+    fetch("http://localhost:8080/api/register", {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify(data),

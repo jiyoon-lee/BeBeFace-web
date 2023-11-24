@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/:id*",
+      "source": "/api/:id*",
       "destination": "http://localhost:8080/:id*"
     }
   ]

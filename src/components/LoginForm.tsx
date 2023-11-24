@@ -17,7 +17,7 @@ export default function LoginForm() {
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    fetch("http://localhost:8080/login", {
+    fetch("http://localhost:8080/api/login", {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify(data),

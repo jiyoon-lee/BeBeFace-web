@@ -21,7 +21,7 @@ export default function TestApi() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:8080/register", requestOptions)
+    fetch("http://localhost:8080/api/register", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -43,7 +43,7 @@ export default function TestApi() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:8080/login", requestOptions)
+    fetch("http://localhost:8080/api/login", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -65,14 +65,14 @@ export default function TestApi() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:8080/logout", requestOptions)
+    fetch("http://localhost:8080/api/logout", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
   };
 
   const oauthNoHeader = () => {
-    fetch("http://localhost:8080/login/oauth2/code/kakao", {
+    fetch("http://localhost:8080/api/login/oauth2/code/kakao", {
       method: "POST",
     })
       .then((response) => response.text())
@@ -81,7 +81,7 @@ export default function TestApi() {
   };
 
   const TryIt = () => {
-    fetch("https://jsonplaceholder.typicode.com/todos/1")
+    fetch("https://jsonplaceholder.typicode.com/api/todos/1")
       .then((response) => response.json())
       .then((json) => console.log(json));
   };

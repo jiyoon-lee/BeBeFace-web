@@ -6,6 +6,7 @@ function PushNoti() {
   const pushNoti = () => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Cache-Control", "no-store");
     myHeaders.append(
       "Authorization",
       "key=AAAAANVh6Cc:APA91bGmXsYiCNSKedtF_5TJhNcLTXZKi9ifM5XQ9dgft15zWP6bE10U9QslW6wNYxmsXS_4VVBrNgsGvg7teyRAR3xRVNhp3ZrdUGz72ofuL_hRv9gBDbeOdOEWsnBzJmOODGZRoHU9"

@@ -17,6 +17,7 @@ export default function LoginForm() {
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Cache-Control", "no-store");
     fetch("http://localhost:8080/login", {
       method: "POST",
       headers: myHeaders,

@@ -66,7 +66,6 @@ export default function TestApi() {
       headers: myHeaders,
       body: raw,
       redirect: "follow",
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     };
 
     fetch("http://localhost:8080/logout", requestOptions)

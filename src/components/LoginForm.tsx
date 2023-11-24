@@ -23,7 +23,6 @@ export default function LoginForm() {
       headers: myHeaders,
       body: JSON.stringify(data),
       redirect: "follow",
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     })
       .then((response) => response.text())
       .then((result) => console.log(result))

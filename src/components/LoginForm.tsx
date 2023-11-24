@@ -15,13 +15,12 @@ export default function LoginForm() {
   } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Cache-Control", "no-store");
     fetch("http://localhost:8080/login", {
       method: "POST", // *GET, POST, PUT, DELETE 등
-      mode: "no-cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: myHeaders,
       body: JSON.stringify(data),
       redirect: "follow",
       referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url

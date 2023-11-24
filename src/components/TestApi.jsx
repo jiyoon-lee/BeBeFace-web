@@ -54,17 +54,16 @@ export default function TestApi() {
 
   const logout = () => {
     var raw = JSON.stringify({
-      email: "junho5336@gmail.com",
-      password: "password",
+      email: "test@email.com",
+      password: "zxc!1234",
     });
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Cache-Control", "no-store");
 
     var requestOptions = {
       method: "POST", // *GET, POST, PUT, DELETE 등
-      mode: "no-cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: myHeaders,
       body: raw,
       redirect: "follow",
       referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url

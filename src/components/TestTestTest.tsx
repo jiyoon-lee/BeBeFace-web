@@ -10,21 +10,24 @@ export default function TestTestTest() {
       if (!e.target.files) {
         return;
       }
-      const myHeaders = new Headers();
-      myHeaders.append(
-        "Authorization",
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGVtYWlsLmNvbSIsInJvbGVzIjpbeyJuYW1lIjoiUk9MRV9CQUJZQ0FSRSJ9XSwiaWF0IjoxNzAwODA5MTc3LCJleHAiOjE3MDA4MTI3Nzd9.u2ozmu9vkdzwRLJjrkCGKzcZv7-WaDWFC40ZTRM6Eyk"
-      );
 
       const formdata = new FormData();
       formdata.append("image", e.target.files[0], "[PROXY]");
+
+      const reader = new FileReader();
+
+      reader.onload = function (event) {
+        setMainImg(event.target.result);
+      };
+
+      reader.readAsDataURL(e.target.files[0]);
 
       fetch("http://localhost:8080/image", {
         method: "POST", // *GET, POST, PUT, DELETE 등
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
         credentials: "same-origin", // include, *same-origin, omit
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "multipart/form-data" },
         body: formdata,
         redirect: "follow", // manual, *follow, error
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url

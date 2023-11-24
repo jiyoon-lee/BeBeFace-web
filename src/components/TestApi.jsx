@@ -124,7 +124,6 @@ export default function TestApi() {
         >
           oauthHaveHeader
         </button>
-        <p>프록시 설정완료</p>
       </div>
     </>
   );

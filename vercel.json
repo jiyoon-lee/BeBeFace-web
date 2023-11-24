@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/:path*",
-      "destination": "http:/localhost:8080/:path*"
+      "source": "/:id",
+      "destination": "http:/localhost:8080/:id"
     }
   ]
 }

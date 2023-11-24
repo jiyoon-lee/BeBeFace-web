@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import "../../public/mainPageStyle/css/style.css";
+import AuthContext from "@/context/AuthContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,15 +16,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <script defer src="/mainPageStyle/js/ie.js"></script>
-      </head>
       <body>
-        <div className="antialiased dark:bg-gray-900 flex flex-col h-full">
-          <Navbar />
-          <main className="p-10 h-auto pt-20 grow">{children}</main>
-          <Footer />
-        </div>
+        <AuthContext>
+          <div className="antialiased dark:bg-gray-900 flex flex-col h-screen">
+            <Navbar />
+            <main className="container p-10 h-auto pt-20 grow">{children}</main>
+            <Footer />
+          </div>
+        </AuthContext>
       </body>
     </html>
   );

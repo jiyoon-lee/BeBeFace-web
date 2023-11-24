@@ -21,7 +21,7 @@ export default function TestApi() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:8080/api/register", requestOptions)
+    fetch("http://localhost:8080/register", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -43,7 +43,7 @@ export default function TestApi() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:8080/api/login", requestOptions)
+    fetch("http://localhost:8080/login", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -65,14 +65,14 @@ export default function TestApi() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:8080/api/logout", requestOptions)
+    fetch("http://localhost:8080/logout", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
   };
 
   const oauthNoHeader = () => {
-    fetch("http://localhost:8080/api/login/oauth2/code/kakao", {
+    fetch("http://localhost:8080/login/oauth2/code/kakao", {
       method: "POST",
     })
       .then((response) => response.text())

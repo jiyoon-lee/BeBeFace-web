@@ -8,8 +8,6 @@ type FormData = {
   password: string;
 };
 export default function LoginForm() {
-  const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
   const {
     register,
     handleSubmit,
@@ -17,6 +15,8 @@ export default function LoginForm() {
   } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
     fetch("http://localhost:8080/login", {
       method: "POST",
       headers: myHeaders,

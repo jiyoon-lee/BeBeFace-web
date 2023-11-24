@@ -80,16 +80,10 @@ export default function TestApi() {
       .catch((error) => console.log("error", error));
   };
 
-  const oauthHaveHeader = () => {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    fetch("http://localhost:8080/login/oauth2/code/kakao", {
-      method: "POST",
-      headers: myHeaders,
-    })
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+  const TryIt = () => {
+    fetch("https://jsonplaceholder.typicode.com/todos/1")
+      .then((response) => response.json())
+      .then((json) => console.log(json));
   };
   return (
     <>
@@ -119,10 +113,10 @@ export default function TestApi() {
           oauthNoHeader
         </button>
         <button
-          onClick={oauthHaveHeader}
+          onClick={TryIt}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
-          oauthHaveHeader
+          TryIt
         </button>
       </div>
     </>

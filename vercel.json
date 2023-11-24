@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/:id",
-      "destination": "http:/localhost:8080/:id"
+      "destination": "http://localhost:8080/:id"
     }
   ]
 }

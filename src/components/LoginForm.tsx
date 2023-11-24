@@ -65,7 +65,7 @@ export default function LoginForm() {
         <Checkbox id="remember" />
         <Label htmlFor="remember">아이디 저장</Label>
       </div>
-      <Button className="bg-[#FDBD02]" type="submit">
+      <Button className="bg-[#FDBD02] focus:bg-[#fda502]" type="submit">
         로그인
       </Button>
     </form>

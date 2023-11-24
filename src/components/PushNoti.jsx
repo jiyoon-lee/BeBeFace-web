@@ -32,7 +32,14 @@ function PushNoti() {
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
   };
-  return <button onClick={pushNoti}>알림 전송</button>;
+  return (
+    <button
+      onClick={pushNoti}
+      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-20"
+    >
+      알림 전송
+    </button>
+  );
 }
 
 export default PushNoti;

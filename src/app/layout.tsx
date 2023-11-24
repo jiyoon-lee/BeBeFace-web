@@ -20,7 +20,7 @@ export default function RootLayout({
         <OAuthContext>
           <div className="antialiased dark:bg-gray-900 flex flex-col h-screen">
             <Navbar />
-            <main className="container p-10 h-auto pt-20 grow">{children}</main>
+            <main className="p-10 h-auto pt-10 grow">{children}</main>
             <Footer />
           </div>
         </OAuthContext>

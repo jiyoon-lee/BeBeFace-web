@@ -31,13 +31,6 @@ export default function TestTestTest() {
     []
   );
 
-  const onUploadImageButtonClick = useCallback(() => {
-    if (!inputRef.current) {
-      return;
-    }
-    inputRef.current.click();
-  }, []);
-
   return (
     <>
       <input
@@ -46,7 +39,6 @@ export default function TestTestTest() {
         ref={inputRef}
         onChange={onUploadImage}
       />
-      <button onClick={onUploadImageButtonClick}>버튼</button>
     </>
   );
 }

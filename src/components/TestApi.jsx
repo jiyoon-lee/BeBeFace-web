@@ -83,11 +83,6 @@ export default function TestApi() {
       .catch((error) => console.log("error", error));
   };
 
-  const TryIt = () => {
-    fetch("https://jsonplaceholder.typicode.com/api/todos/1")
-      .then((response) => response.json())
-      .then((json) => console.log(json));
-  };
   return (
     <>
       <div className="absolute">
@@ -95,31 +90,25 @@ export default function TestApi() {
           onClick={register}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
-          register
+          회원가입 테스트
         </button>
         <button
           onClick={login}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
-          login
+          로그인 테스트
         </button>
         <button
           onClick={logout}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
-          logout
+          로그아웃 테스트
         </button>
         <button
           onClick={oauthNoHeader}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
-          oauthNoHeader
-        </button>
-        <button
-          onClick={TryIt}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          TryIt!!!
+          카카오 로그인 테스트
         </button>
       </div>
     </>

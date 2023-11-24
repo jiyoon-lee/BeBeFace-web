@@ -7,7 +7,12 @@ type FormData = {
   email: string;
   password: string;
 };
-export default function LoginForm() {
+
+type Props = {
+  onSignin: (error?: Error) => void;
+};
+export default function LoginForm({ onSignin }: Props) {
+  const { signin } = useAuthContext();
   const {
     register,
     handleSubmit,

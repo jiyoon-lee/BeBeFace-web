@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import AuthContext from "@/context/AuthContext";
+import OAuthContext from "@/context/OAuthContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,13 +17,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AuthContext>
+        <OAuthContext>
           <div className="antialiased dark:bg-gray-900 flex flex-col h-screen">
             <Navbar />
             <main className="container p-10 h-auto pt-20 grow">{children}</main>
             <Footer />
           </div>
-        </AuthContext>
+        </OAuthContext>
       </body>
     </html>
   );

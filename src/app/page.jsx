@@ -1,5 +1,11 @@
-import TestApi from "@/components/TestApi";
+// import TestApi from "@/components/TestApi";
+import TestTestTest from "@/components/TestTestTest";
 
 export default function HomePage() {
-  return <TestApi />;
+  return (
+    <>
+      {/* <TestApi /> */}
+      <TestTestTest />
+    </>
+  );
 }

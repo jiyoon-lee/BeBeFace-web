@@ -1,10 +1,31 @@
-"use client";
-import { SessionProvider } from "next-auth/react";
+import React from "react";
+import useSWR from "swr";
+import type { ApiContext, User } from "@/types";
 
-type Props = {
-  children: React.ReactNode;
+type AuthContextProviderProps = {
+  context: ApiContext;
+  authUser?: User;
 };
 
-export default function AuthContext({ children }: Props) {
-  return <SessionProvider>{children}</SessionProvider>;
+const AuthContextProvider = ({
+  context,
+  authUser,
+  children,
+}: React.PropsWithChildren<AuthContextProviderProps>) => {
+  const { data, error, mutate } = useSWR<User>(
+    `${context.apiRootUrl.replace(/\/$/g, "")}/users/me`
+  );
+  const isLoading = !data && !error;
+
+  const signinInternal = async () => {};
+  const signoutInternal = async () => {};
+  return (
+    <AuthContext.Provider value={{ authUser: data ?? authUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export default function AuthContext() {
+  return <div></div>;
 }

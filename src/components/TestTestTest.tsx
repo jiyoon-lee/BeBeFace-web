@@ -13,7 +13,7 @@ export default function TestTestTest() {
       const formdata = new FormData();
       formdata.append("image", e.target.files[0], "[PROXY]");
 
-      fetch("http://localhost:8080/image", {
+      fetch("http://localhost:8080/image/upload", {
         method: "POST", // *GET, POST, PUT, DELETE 등
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached

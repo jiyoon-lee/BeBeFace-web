@@ -3,6 +3,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import OAuthContext from "@/context/OAuthContext";
+import SWRConfigContext from "@/context/SWRConfigContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +21,9 @@ export default function RootLayout({
         <OAuthContext>
           <div className="antialiased dark:bg-gray-900 flex flex-col h-screen">
             <Navbar />
-            <main className="p-10 h-auto pt-10 grow">{children}</main>
+            <main className="p-10 h-auto pt-10 grow">
+              <SWRConfigContext>{children}</SWRConfigContext>
+            </main>
             <Footer />
           </div>
         </OAuthContext>

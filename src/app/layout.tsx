@@ -17,6 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <title>BeBeFace</title>
+      </head>
       <body>
         <OAuthContext>
           <div className="antialiased dark:bg-gray-900 flex flex-col h-screen">

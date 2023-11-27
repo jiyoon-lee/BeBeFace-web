@@ -9,6 +9,12 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    colors: {
+      btn: {
+        default: "#FEBD01",
+        hover: "#FDBD02",
+      },
+    },
     screens: {
       sm: "640px",
       // => @media (min-width: 640px) { ... }

@@ -27,8 +27,8 @@ export default function Navbar() {
   const { data: session } = useSession();
   const user = session?.user;
   return (
-    <header className="z-10">
-      <nav className="bg-white border-gray-200 px-4 lg:px-6 py-3 dark:bg-gray-800 bg-opacity-10">
+    <header className="z-10 sticky top-0 bg-[#fff8ee]">
+      <nav className="border-gray-200 px-4 lg:px-6 py-3 dark:bg-gray-800">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <a href="/" className="flex items-center">
             <Image src={Logo} width={150} alt="BeBeFace Logo" />

@@ -6,19 +6,19 @@ import Logo from "@/assets/images/logo.png";
 
 const headerList = [
   {
-    path: "",
+    path: "/home",
     name: "홈",
   },
   {
-    path: "",
+    path: "/service",
     name: "서비스",
   },
   {
-    path: "",
+    path: "/calendar",
     name: "베베 캘린더",
   },
   {
-    path: "",
+    path: "/album",
     name: "베베 앨범",
   },
 ];

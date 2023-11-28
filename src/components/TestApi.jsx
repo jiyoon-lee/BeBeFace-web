@@ -1,7 +1,10 @@
 "use client";
 import React from "react";
+import useSWR from "swr";
 
 export default function TestApi() {
+  const { data } = useSWR("/api/me");
+  console.log(data);
   const register = () => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");

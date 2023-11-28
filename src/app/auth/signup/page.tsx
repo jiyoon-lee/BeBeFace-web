@@ -4,8 +4,10 @@ import MyCard from "@/components/MyCard";
 import BabyForm from "@/components/form/BabyForm";
 import MemberForm from "@/components/form/MemberForm";
 import SitterForm from "@/components/form/SitterForm";
+// import useSWR from "swr";
 
 export default function SignupPage() {
+  // const { data, mutate } = useSWR("");
   const [additionalType, setAdditionalType] = useState("");
   const changeAdditionalType = (type: string) => setAdditionalType(type);
   return (

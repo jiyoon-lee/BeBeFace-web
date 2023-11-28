@@ -23,7 +23,6 @@ export default async function SigninPage({
 
   return (
     <div className="absolute -translate-x-1/2 left-1/2">
-      <div>{JSON.stringify(providers)}</div>;
       <MyCard>
         <h3 className="text-3xl font-bold dark:text-white text-center">
           로그인

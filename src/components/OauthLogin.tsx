@@ -25,9 +25,10 @@ const filterName = (name: string) => {
       return "";
   }
 };
-export default function Signin({ providers, callbackUrl }: Props) {
+export default function OauthLogin({ providers, callbackUrl }: Props) {
   return (
     <div className="flex flex-col gap-2">
+      <div>{JSON.stringify(providers)}</div>
       <button
         type="button"
         className="text-white bg-[#ffdd08] hover:bg-[#ffdd08]/90 focus:ring-4 focus:ring-[#ffdd08]/50 focus:outline-none font-medium rounded-lg text-sm px-1 py-1 text-center flex items-center dark:focus:ring-[#2557D6]/50"

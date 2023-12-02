@@ -1,5 +1,5 @@
 import { client } from "./sanity";
-// const BASE_URL = process.env.API_BASE_URL + ":" + process.env.API_PORT;
+// const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + ":" + process.env.NEXT_PUBLIC_API_PORT;
 
 type OAuthUser = {
   id: string;
@@ -41,7 +41,7 @@ export async function getUserByUsername(username: string) {
 }
 
 export async function signup(user: SignupProp) {
-  return fetch(`${process.env.API_BASE_URL}/auth/register`, {
+  return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/register`, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -54,7 +54,7 @@ export async function signup(user: SignupProp) {
 }
 
 export async function signin(user: SigninProp) {
-  return fetch(`${process.env.API_BASE_URL}/auth/login`, {
+  return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",

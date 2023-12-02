@@ -7,7 +7,7 @@ const nextConfig = {
       styledComponents: true,
     };
 
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
       compilerConfig = {
         ...compilerConfig,
         // 프러덕션 환경에서는 React Testing Library에서 사용하는 data-testid 속성을 삭제

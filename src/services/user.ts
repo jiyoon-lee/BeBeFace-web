@@ -41,7 +41,7 @@ export async function getUserByUsername(username: string) {
 }
 
 export async function signup(user: SignupProp) {
-  return fetch("http://192.168.0.42:8080/auth/register", {
+  return fetch(`${process.env.API_BASE_URL}/auth/register`, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -54,7 +54,7 @@ export async function signup(user: SignupProp) {
 }
 
 export async function signin(user: SigninProp) {
-  return fetch("http://192.168.0.42:8080/login", {
+  return fetch(`${process.env.API_BASE_URL}/auth/login`, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",

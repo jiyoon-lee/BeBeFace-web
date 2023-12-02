@@ -1,15 +1,48 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import MyCard from "@/components/MyCard";
 import BabyForm from "@/components/form/BabyForm";
 import MemberForm from "@/components/form/MemberForm";
 import SitterForm from "@/components/form/SitterForm";
-// import useSWR from "swr";
+import { signup } from "@/services/user";
+
+export type FormData = {
+  auth: "ROLE_USER" | "ROLE_ADMIN";
+  email: string;
+  name: string;
+  pwd: string;
+  pwdConfirm: string;
+  type: string;
+};
 
 export default function SignupPage() {
-  // const { data, mutate } = useSWR("");
+  const router = useRouter();
   const [additionalType, setAdditionalType] = useState("");
   const changeAdditionalType = (type: string) => setAdditionalType(type);
+  const memberForm = useForm<FormData>({
+    mode: "onBlur",
+  });
+  const submitForm = async () => {
+    const { getValues } = memberForm;
+    const name = getValues("name");
+    const email = getValues("email");
+    const password = getValues("pwd");
+    const auth = getValues("auth");
+    try {
+      const response = await signup({
+        name,
+        email,
+        password,
+        auth,
+      });
+      console.log(response);
+      router.push("/auth/signin");
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <div className="flex justify-center">
       <MyCard>
@@ -27,6 +60,7 @@ export default function SignupPage() {
             }`}
           >
             <MemberForm
+              memberForm={memberForm}
               additionalType={additionalType}
               changeAdditionalType={changeAdditionalType}
             />
@@ -38,7 +72,10 @@ export default function SignupPage() {
           )}
         </div>
         {additionalType && (
-          <button className=" bg-yellow-300 hover:bg-btn-default w-1/3 float-right text-stone-700 font-bold py-2 px-4 rounded">
+          <button
+            onClick={submitForm}
+            className="bg-yellow-300 hover:bg-btn-default w-1/3 float-right text-stone-700 font-bold py-2 px-4 rounded"
+          >
             등록
           </button>
         )}

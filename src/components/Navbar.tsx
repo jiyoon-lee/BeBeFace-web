@@ -14,6 +14,10 @@ const headerList = [
     name: "서비스",
   },
   {
+    path: "/timeline",
+    name: "타임라인",
+  },
+  {
     path: "/calendar",
     name: "베베 캘린더",
   },

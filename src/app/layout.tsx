@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { AuthContextProvider } from "@/context/AuthContext";
 import OAuthContext from "@/context/OAuthContext";
 import SWRConfigContext from "@/context/SWRConfigContext";
 
@@ -22,13 +23,15 @@ export default function RootLayout({
       </head>
       <body>
         <OAuthContext>
-          <div className="antialiased dark:bg-gray-900 flex flex-col h-screen">
-            <Navbar />
-            <main className="p-10 h-auto pt-10 grow">
-              <SWRConfigContext>{children}</SWRConfigContext>
-            </main>
-            <Footer />
-          </div>
+          <AuthContextProvider>
+            <div className="antialiased dark:bg-gray-900 flex flex-col h-screen">
+              <Navbar />
+              <main className="p-10 h-auto pt-10 grow">
+                <SWRConfigContext>{children}</SWRConfigContext>
+              </main>
+              <Footer />
+            </div>
+          </AuthContextProvider>
         </OAuthContext>
       </body>
     </html>

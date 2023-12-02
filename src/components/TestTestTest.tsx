@@ -1,43 +1,43 @@
 "use client";
-import React, { useCallback, useRef } from "react";
+import { useSWRConfig } from "swr";
 
-export default function TestTestTest() {
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const onUploadImage = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (!e.target.files) {
-        return;
-      }
-
-      const formdata = new FormData();
-      formdata.append("image", e.target.files[0], "[PROXY]");
-
-      fetch("http://localhost:8080/image/upload", {
-        method: "POST", // *GET, POST, PUT, DELETE 등
-        mode: "cors", // no-cors, *cors, same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
-        headers: { "Content-Type": "multipart/form-data" },
-        body: formdata,
-        redirect: "follow", // manual, *follow, error
-        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      })
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.log("error", error));
+// Fetcher 구현.
+// 추가 인수는 두 번째 매개변수의 `arg` 속성을 통해 전달됩니다.
+// 아래 예제에서 `arg`는 `'my_token'`이 됩니다.
+async function updateUser(url: string) {
+  await fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      id: 1,
+      name: "Jiyoon",
+      email: "jiyoon@example.com",
+    }),
+    headers: {
+      "Content-Type": "application/json",
     },
-    []
-  );
-
+  });
+}
+export default function TestTestTest() {
+  const { mutate } = useSWRConfig();
   return (
     <>
-      <input
-        type="file"
-        accept="image/*"
-        ref={inputRef}
-        onChange={onUploadImage}
-      />
+      <button
+        onClick={() => {
+          console.log("들어오긴 했나");
+          // 특정 인수를 사용하여 `updateUser`를 트리거 합니다.
+          mutate(
+            "/api/user",
+            {
+              id: 1,
+              name: "Jiyoon",
+              email: "jiyoon@example.com",
+            },
+            false
+          );
+        }}
+      >
+        Update User
+      </button>
     </>
   );
 }

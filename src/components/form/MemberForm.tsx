@@ -3,36 +3,31 @@ import { ErrorMessage } from "@hookform/error-message";
 import { Label, TextInput } from "flowbite-react";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { Controller, SubmitHandler, UseFormReturn } from "react-hook-form";
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
 import ErrorStyling from "./ErrorStyling";
-
-type FormData = {
-  email: string;
-  name: string;
-  pwd: string;
-  pwdConfirm: string;
-  type: string;
-};
+import { FormData } from "@/app/auth/signup/page";
 
 type Props = {
   additionalType: string;
   changeAdditionalType: (type: string) => void;
+  memberForm: UseFormReturn<FormData>;
 };
 
 export default function MemberForm({
+  memberForm: {
+    control,
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  },
   additionalType,
   changeAdditionalType,
 }: Props) {
   const [showPwd, setShowPwd] = useState(false);
   const [showPwdConf, setShowPwdConf] = useState(false);
-  const {
-    register,
-    watch,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({ mode: "onBlur" });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const myHeaders = new Headers();
@@ -157,28 +152,46 @@ export default function MemberForm({
             render={({ message }) => <ErrorStyling>{message}</ErrorStyling>}
           ></ErrorMessage>
         </div>
-        <div className="mt-3 flex flex-col">
-          <Label className="mb-2">회원가입 유형을 선택하십시오.</Label>
-          <div className="flex">
-            <button
-              onClick={() => changeAdditionalType("baby")}
-              className={`grow border border-btn-default border-r-0 ${
-                additionalType === "baby" ? "bg-yellow-300" : "bg-gray-300"
-              } hover:bg-btn-default text-gray-800 font-bold py-2 px-4 rounded-l`}
-            >
-              보호자
-            </button>
-            <button
-              onClick={() => changeAdditionalType("sitter")}
-              className={`grow border border-btn-default ${
-                additionalType === "sitter" ? "bg-yellow-300" : "bg-gray-300"
-              } hover:bg-btn-default text-gray-800 font-bold py-2 px-4 rounded-r`}
-            >
-              돌보미
-            </button>
-          </div>
-        </div>
       </form>
+      <div className="mt-3 flex flex-col">
+        <Label className="mb-2">회원가입 유형을 선택하십시오.</Label>
+        <Controller
+          name="auth"
+          control={control}
+          render={({ field }) => {
+            return (
+              <div className="flex">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    field.onChange("ROLE_ADMIN");
+                    changeAdditionalType("baby");
+                  }}
+                  className={`grow border border-btn-default border-r-0 ${
+                    additionalType === "baby" ? "bg-yellow-300" : "bg-gray-300"
+                  } hover:bg-btn-default text-gray-800 font-bold py-2 px-4 rounded-l`}
+                >
+                  보호자
+                </button>
+                <button
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    e.preventDefault();
+                    field.onChange("ROLE_USER");
+                    changeAdditionalType("sitter");
+                  }}
+                  className={`grow border border-btn-default ${
+                    additionalType === "sitter"
+                      ? "bg-yellow-300"
+                      : "bg-gray-300"
+                  } hover:bg-btn-default text-gray-800 font-bold py-2 px-4 rounded-r`}
+                >
+                  돌보미
+                </button>
+              </div>
+            );
+          }}
+        />
+      </div>
     </>
   );
 }

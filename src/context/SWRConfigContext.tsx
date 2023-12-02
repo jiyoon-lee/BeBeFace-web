@@ -12,7 +12,12 @@ export default function SWRConfigContext({ children }: Props) {
         dedupingInterval: 100,
         refreshInterval: 3000,
         fallback: { a: 1, b: 1 },
-        fetcher: (url: string) => fetch(url).then((res) => res.json()),
+        fetcher: (url: string, init) => {
+          console.log("들어왔냐궁+++++SWRConfigContext");
+          return fetch(`http://localhost:3000${url}`, init).then((res) =>
+            res.json()
+          );
+        },
       }}
     >
       {children}

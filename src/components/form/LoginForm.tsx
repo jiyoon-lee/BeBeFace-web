@@ -1,33 +1,37 @@
 "use client";
+import { signin } from "@/services/user";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+// import { Router } from "next/router";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+// import useSWR from "swr";
 
 type FormData = {
   email: string;
   password: string;
 };
 export default function LoginForm() {
+  // const user = {
+  //   Id: 78912,
+  //   Customer: "Jason Sweet",
+  //   Quantity: 1,
+  //   Price: 18.0,
+  // };
+  // const { mutate } = useSWR("https://reqbin.com/echo/post/json");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    fetch("http://localhost:8080/login", {
-      method: "POST", // *GET, POST, PUT, DELETE 등
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    })
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    try {
+      const response = await signin(data);
+      localStorage.setItem("access_token", response.data.accessToken);
+      localStorage.setItem("refresh_token", response.data.refreshToken);
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <form

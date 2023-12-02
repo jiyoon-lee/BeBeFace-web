@@ -1,9 +1,10 @@
 "use client";
-import { signin } from "@/services/user";
+// import { signin } from "@/services/user";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 // import { Router } from "next/router";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { signin } from "@/services/user";
 // import useSWR from "swr";
 
 type FormData = {
@@ -27,8 +28,9 @@ export default function LoginForm() {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
       const response = await signin(data);
-      localStorage.setItem("access_token", response.data.accessToken);
-      localStorage.setItem("refresh_token", response.data.refreshToken);
+      console.log(response);
+      // localStorage.setItem("access_token", response?.data?.accessToken);
+      // localStorage.setItem("refresh_token", response?.data?.refreshToken);
     } catch (error) {
       console.error(error);
     }

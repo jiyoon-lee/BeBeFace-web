@@ -13,4 +13,5 @@ export const AuthContextProvider = ({ children }: Props) => {
     </AuthContext.Provider>
   );
 };
+
 export const useAuthContext = () => useContext(AuthContext);

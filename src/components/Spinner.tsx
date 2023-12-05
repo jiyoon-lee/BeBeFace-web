@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, CSSProperties } from "react";
+import React, { useState, CSSProperties } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const override: CSSProperties = {

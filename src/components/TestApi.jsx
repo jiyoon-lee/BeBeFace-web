@@ -3,8 +3,6 @@ import React, { useState, useCallback, useRef } from "react";
 
 export default function TestApi() {
   const [jwt, setJWT] = useState("");
-  // const { data } = useSWR("/api/me");
-  // console.log(data);
   const register1 = () => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -124,25 +122,28 @@ export default function TestApi() {
   };
   const inputRef = useRef(null);
 
-  const onUploadImage = useCallback((e) => {
-    if (!e.target.files) {
-      return;
-    }
+  const onUploadImage = useCallback(
+    (e) => {
+      if (!e.target.files) {
+        return;
+      }
 
-    const formdata = new FormData();
-    formdata.append("file", e.target.files[0]);
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${jwt}`);
-    fetch("http://192.168.0.42:8080/video/upload", {
-      method: "POST",
-      headers: myHeaders,
-      body: formdata,
-      redirect: "follow",
-    })
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-  }, []);
+      const formdata = new FormData();
+      formdata.append("file", e.target.files[0]);
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${jwt}`);
+      fetch("http://192.168.0.42:8080/video/upload", {
+        method: "POST",
+        headers: myHeaders,
+        body: formdata,
+        redirect: "follow",
+      })
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+    },
+    [jwt]
+  );
 
   return (
     <>

@@ -20,7 +20,7 @@ export default function GalleryPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4">
         {images.map((image, index) => (
           <div key={index}>
-            <img className="h-auto max-w-full rounded-lg" src={image} alt="" />
+            {/* <img className="h-auto max-w-full rounded-lg" src={image} alt="" />? */}
           </div>
         ))}
       </div>

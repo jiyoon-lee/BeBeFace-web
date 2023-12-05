@@ -5,6 +5,17 @@ export default function TimelineList() {
   const list = [
     { id: 1, date: "February 2022", author: "parent" },
     { id: 2, date: "February 2022", author: "sitter" },
+    { id: 2, date: "February 2022", author: "sitter" },
+    { id: 2, date: "February 2022", author: "sitter" },
+    { id: 2, date: "February 2022", author: "sitter" },
+    { id: 2, date: "February 2022", author: "sitter" },
+    { id: 2, date: "February 2022", author: "sitter" },
+    { id: 2, date: "February 2022", author: "sitter" },
+    { id: 2, date: "February 2022", author: "sitter" },
+    { id: 2, date: "February 2022", author: "sitter" },
+    { id: 2, date: "February 2022", author: "sitter" },
+    { id: 2, date: "February 2022", author: "sitter" },
+    { id: 2, date: "February 2022", author: "sitter" },
   ];
   return (
     <>

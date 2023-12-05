@@ -28,7 +28,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/page.jsx",
-    "src/components/TestApi.jsx"
+    "src/components/TestApi.jsx",
+    "src/context/AuthContext.jsx",
+    "src/controller/auth.js"
   ],
   "exclude": ["node_modules"]
 }

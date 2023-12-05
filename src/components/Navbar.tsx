@@ -1,8 +1,10 @@
 "use client";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
-import Dropdown from "./Dropdown";
+// import { useSession } from "next-auth/react";
 import Logo from "@/assets/images/logo.png";
+import { useEffect } from "react";
+import * as token from "@/utils/token";
+import { useAuthContext } from "@/context/AuthContext";
 
 const headerList = [
   {
@@ -28,8 +30,13 @@ const headerList = [
 ];
 
 export default function Navbar() {
-  const { data: session } = useSession();
-  const user = session?.user;
+  // const { data: session } = useSession();
+  const session = null;
+  const { setAccessToken } = useAuthContext();
+  useEffect(() => {
+    if (token.getToken() == null) return;
+    setAccessToken(token.getToken());
+  });
   return (
     <header className="z-10 sticky top-0 bg-[#fff8ee]">
       <nav className="border-gray-200 px-4 lg:px-6 py-3 dark:bg-gray-800">
@@ -38,7 +45,7 @@ export default function Navbar() {
             <Image src={Logo} width={150} alt="BeBeFace Logo" />
           </a>
           <div className="flex items-center lg:order-2">
-            {user && <Dropdown image={user.image} username={user.username} />}
+            {/* {user && <Dropdown image={user.image} username={user.username} />} */}
             {!session && (
               <>
                 <a

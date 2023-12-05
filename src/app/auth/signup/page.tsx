@@ -6,10 +6,10 @@ import MyCard from "@/components/MyCard";
 import BabyForm from "@/components/form/BabyForm";
 import MemberForm from "@/components/form/MemberForm";
 import SitterForm from "@/components/form/SitterForm";
-import { signup } from "@/services/user";
+import { signup } from "@/services/auth";
 
 export type FormData = {
-  auth: "ROLE_USER" | "ROLE_ADMIN";
+  role: "ROLE_USER" | "ROLE_ADMIN";
   email: string;
   name: string;
   pwd: string;
@@ -29,19 +29,15 @@ export default function SignupPage() {
     const name = getValues("name");
     const email = getValues("email");
     const password = getValues("pwd");
-    const auth = getValues("auth");
-    try {
-      const response = await signup({
-        name,
-        email,
-        password,
-        auth,
-      });
-      console.log(response);
+    const role = getValues("role");
+    signup({
+      name,
+      email,
+      password,
+      role,
+    }).then(() => {
       router.push("/auth/signin");
-    } catch (e) {
-      console.error(e);
-    }
+    });
   };
   return (
     <div className="flex justify-center">

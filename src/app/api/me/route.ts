@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { getUserByUsername } from "@/services/user";
+import { getUserByUsername } from "@/services/auth";
 
 export async function GET() {
   const session = await getServerSession(authOptions);

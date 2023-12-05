@@ -1,24 +1,16 @@
 "use client";
-// import { signin } from "@/services/user";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-// import { Router } from "next/router";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { signin } from "@/services/user";
-// import useSWR from "swr";
+import { signin } from "@/services/auth";
 
 type FormData = {
   email: string;
   password: string;
 };
 export default function LoginForm() {
-  // const user = {
-  //   Id: 78912,
-  //   Customer: "Jason Sweet",
-  //   Quantity: 1,
-  //   Price: 18.0,
-  // };
-  // const { mutate } = useSWR("https://reqbin.com/echo/post/json");
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -26,14 +18,9 @@ export default function LoginForm() {
   } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    try {
-      const response = await signin(data);
-      console.log(response);
-      // localStorage.setItem("access_token", response?.data?.accessToken);
-      // localStorage.setItem("refresh_token", response?.data?.refreshToken);
-    } catch (error) {
-      console.error(error);
-    }
+    signin(data).then(() => {
+      router.push("/auth/signin");
+    });
   };
   return (
     <form

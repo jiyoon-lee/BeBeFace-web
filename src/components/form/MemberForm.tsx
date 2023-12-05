@@ -4,8 +4,7 @@ import { Label, TextInput } from "flowbite-react";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
 import { Controller, SubmitHandler, UseFormReturn } from "react-hook-form";
-import { IoMdEye } from "react-icons/io";
-import { IoMdEyeOff } from "react-icons/io";
+import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import ErrorStyling from "./ErrorStyling";
 import { FormData } from "@/app/auth/signup/page";
 
@@ -156,7 +155,7 @@ export default function MemberForm({
       <div className="mt-3 flex flex-col">
         <Label className="mb-2">회원가입 유형을 선택하십시오.</Label>
         <Controller
-          name="auth"
+          name="role"
           control={control}
           render={({ field }) => {
             return (

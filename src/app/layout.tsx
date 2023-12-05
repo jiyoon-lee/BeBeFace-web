@@ -3,8 +3,11 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { AuthContextProvider } from "@/context/AuthContext";
-import OAuthContext from "@/context/OAuthContext";
+import { LoadingContextProvider } from "@/context/LoadingContext";
 import SWRConfigContext from "@/context/SWRConfigContext";
+import { sequelize } from "@/db/database.js";
+
+sequelize.sync();
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,7 +25,8 @@ export default function RootLayout({
         <title>BeBeFace</title>
       </head>
       <body>
-        <OAuthContext>
+        {/* <OAuthContext> */}
+        <LoadingContextProvider>
           <AuthContextProvider>
             <div className="antialiased dark:bg-gray-900 flex flex-col h-screen">
               <Navbar />
@@ -32,7 +36,8 @@ export default function RootLayout({
               <Footer />
             </div>
           </AuthContextProvider>
-        </OAuthContext>
+        </LoadingContextProvider>
+        {/* </OAuthContext> */}
       </body>
     </html>
   );

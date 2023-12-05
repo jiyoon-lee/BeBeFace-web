@@ -1,14 +1,13 @@
-import axios from "axios";
+import ax from "axios";
+import { setupInterceptors } from "./setupInterceptors";
 
-export const axios_ins = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://192.168.0.42:8080",
-  headers: { "Content-Type": "application/json" },
-});
-
-export const axios_ins_token = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://192.168.0.42:8080",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + localStorage.getItem("access_token") || "",
-  },
-});
+export const axios = setupInterceptors(
+  ax.create({
+    baseURL: "http://192.168.0.42:8080",
+    // baseURL: "htsstp://localhost:3000/api",
+    timeout: 1000,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+);

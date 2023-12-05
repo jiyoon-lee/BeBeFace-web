@@ -1,3 +1,4 @@
+import { axios } from "@/utils/axios";
 import { client } from "./sanity";
 // const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + ":" + process.env.NEXT_PUBLIC_API_PORT;
 
@@ -13,7 +14,7 @@ type SignupProp = {
   email: string;
   name: string;
   password: string;
-  auth: "ROLE_USER" | "ROLE_ADMIN";
+  role: "ROLE_USER" | "ROLE_ADMIN";
 };
 
 type SigninProp = {
@@ -41,20 +42,13 @@ export async function getUserByUsername(username: string) {
 }
 
 export async function signup(user: SignupProp) {
-  return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/register`, {
-    method: "POST",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user),
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
+  return axios.post(`/auth/register`, user, {
+    headers: getHeader(),
   });
 }
 
 export async function signin(user: SigninProp) {
-  return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`, {
+  return fetch(`http://192.168.0.42:8080/auth/login`, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -63,5 +57,14 @@ export async function signin(user: SigninProp) {
     body: JSON.stringify(user),
     redirect: "follow",
     referrerPolicy: "no-referrer",
-  });
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      localStorage.setItem("token", data.accessToken);
+      return data;
+    });
 }
+
+const getHeader = () => {
+  return { Authorization: `Bearer ${localStorage.getItem("token")}` };
+};

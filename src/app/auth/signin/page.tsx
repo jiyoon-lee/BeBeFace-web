@@ -5,7 +5,6 @@ import React from "react";
 import MyCard from "@/components/MyCard";
 import OauthLogin from "@/components/OauthLogin";
 import LoginForm from "@/components/form/LoginForm";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 type Props = {
   searchParams: {
@@ -15,10 +14,10 @@ type Props = {
 export default async function SigninPage({
   searchParams: { callbackUrl },
 }: Props) {
-  const session = await getServerSession(authOptions);
-  if (session) {
-    redirect("/");
-  }
+  // const session = await getServerSession(authOptions);
+  // if (session) {
+  //   redirect("/");
+  // }
   const providers = (await getProviders()) ?? {};
 
   return (

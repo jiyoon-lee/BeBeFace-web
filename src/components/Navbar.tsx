@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
-// import { useSession } from "next-auth/react";
-import Logo from "@/assets/images/logo.png";
 import { useEffect } from "react";
-import * as token from "@/utils/token";
+import Logo from "@/assets/images/logo.png";
+import DropdownCom from "@/components/Dropdown";
 import { useAuthContext } from "@/context/AuthContext";
+import * as token from "@/utils/token";
 
 const headerList = [
   {
@@ -30,12 +30,9 @@ const headerList = [
 ];
 
 export default function Navbar() {
-  // const { data: session } = useSession();
-  const session = null;
-  const { setAccessToken } = useAuthContext();
+  const { userInfo, isLogin } = useAuthContext();
   useEffect(() => {
     if (token.getToken() == null) return;
-    setAccessToken(token.getToken());
   });
   return (
     <header className="z-10 sticky top-0 bg-[#fff8ee]">
@@ -45,8 +42,13 @@ export default function Navbar() {
             <Image src={Logo} width={150} alt="BeBeFace Logo" />
           </a>
           <div className="flex items-center lg:order-2">
-            {/* {user && <Dropdown image={user.image} username={user.username} />} */}
-            {!session && (
+            {userInfo && (
+              <>
+                <span className="mr-3">{userInfo.name}</span>
+                <DropdownCom role={userInfo.role} username={userInfo.name} />
+              </>
+            )}
+            {!isLogin && (
               <>
                 <a
                   href="/auth/signin"
@@ -55,7 +57,7 @@ export default function Navbar() {
                   로그인
                 </a>
                 <a
-                  href="/auth/signup"
+                  href="/auth/register"
                   className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
                 >
                   회원가입

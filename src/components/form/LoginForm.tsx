@@ -1,25 +1,22 @@
 "use client";
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { Button, Checkbox, TextInput, Label } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { signin } from "@/services/auth";
+import { LoginFormType } from "@/types";
 
-type FormData = {
-  email: string;
-  password: string;
-};
 export default function LoginForm() {
   const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<LoginFormType>();
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
+  const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
     signin(data).then(() => {
-      router.push("/auth/signin");
+      router.push("/");
     });
   };
   return (

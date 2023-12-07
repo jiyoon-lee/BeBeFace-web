@@ -33,7 +33,7 @@ export async function POST() {
   return NextResponse.json("Hello, My Name is jiyoontyan");
 }
 // POST /auth/signup
-router.post("/signup", validateSignup, validate, authController.signup);
+router.post("/register", validateSignup, validate, authController.signup);
 
 // POST /auth/me
 router.post("/me", isAuth, authController.me);

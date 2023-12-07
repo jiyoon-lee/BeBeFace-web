@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import * as authController from "@/controller/auth.js";
+import * as authController from "@/controller/auth.ts";
 
 type ErrorStatus = {
   status: number;

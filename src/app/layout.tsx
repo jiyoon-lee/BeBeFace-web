@@ -1,8 +1,10 @@
+"use clinet";
 import type { Metadata } from "next";
 import "./globals.css";
+import Dashboard from "@/components/Dashboard";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { AuthContextProvider } from "@/context/AuthContext";
+import { AuthContextProvider, useAuthContext } from "@/context/AuthContext";
 import { LoadingContextProvider } from "@/context/LoadingContext";
 import SWRConfigContext from "@/context/SWRConfigContext";
 import { sequelize } from "@/db/database.js";
@@ -19,25 +21,28 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { userInfo } = useAuthContext;
   return (
     <html lang="en">
       <head>
         <title>BeBeFace</title>
       </head>
       <body>
-        {/* <OAuthContext> */}
         <LoadingContextProvider>
           <AuthContextProvider>
-            <div className="antialiased dark:bg-gray-900 flex flex-col h-screen">
-              <Navbar />
-              <main className="p-10 h-auto pt-10 grow">
-                <SWRConfigContext>{children}</SWRConfigContext>
-              </main>
-              <Footer />
-            </div>
+            {userInfo ? (
+              <div className="antialiased dark:bg-gray-900 flex flex-col h-screen">
+                <Navbar />
+                <main className="p-10 h-auto pt-10 grow">
+                  <SWRConfigContext>{children}</SWRConfigContext>
+                </main>
+                <Footer />
+              </div>
+            ) : (
+              <Dashboard />
+            )}
           </AuthContextProvider>
         </LoadingContextProvider>
-        {/* </OAuthContext> */}
       </body>
     </html>
   );

@@ -1,3 +1,4 @@
+import { LoginResponseType } from "@/types";
 import {
   isAxiosError,
   AxiosError,
@@ -53,15 +54,15 @@ const onRequest = (
   if (method === "get") {
     config.timeout = 15000;
   }
+
   return config;
 };
 
-const onResponse = (response: AxiosResponse): AxiosResponse => {
+const onResponse = (response: AxiosResponse) => {
   const { method, url } = response.config;
   const { status } = response;
 
   logOnDev(`[API ${method?.toUpperCase()} ${url} | Resopnse ${status}]`);
-  // onLoading("response");
   return response;
 };
 const onErrorResponse = (error: AxiosError | Error): Promise<AxiosError> => {

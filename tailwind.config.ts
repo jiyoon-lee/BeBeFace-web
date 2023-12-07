@@ -10,6 +10,9 @@ const config: Config = {
   ],
   theme: {
     colors: {
+      yellow: {
+        dark: "#FEBD01",
+      },
       btn: {
         default: "#FEBD01",
         hover: "#FDBD02",

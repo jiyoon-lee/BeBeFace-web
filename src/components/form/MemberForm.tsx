@@ -1,12 +1,11 @@
 "use client";
 import { ErrorMessage } from "@hookform/error-message";
 import { Label, TextInput } from "flowbite-react";
-import { redirect } from "next/navigation";
 import React, { useState } from "react";
-import { Controller, SubmitHandler, UseFormReturn } from "react-hook-form";
+import { Controller, UseFormReturn } from "react-hook-form";
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import ErrorStyling from "./ErrorStyling";
-import { FormData } from "@/app/auth/signup/page";
+import { FormData } from "@/app/auth/register/page";
 
 type Props = {
   additionalType: string;
@@ -19,7 +18,6 @@ export default function MemberForm({
     control,
     register,
     watch,
-    handleSubmit,
     formState: { errors },
   },
   additionalType,
@@ -28,32 +26,12 @@ export default function MemberForm({
   const [showPwd, setShowPwd] = useState(false);
   const [showPwdConf, setShowPwdConf] = useState(false);
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Cache-Control", "no-store");
-    fetch("http://localhost:8080/register", {
-      method: "POST", // *GET, POST, PUT, DELETE 등
-      headers: myHeaders,
-      body: JSON.stringify(data),
-      redirect: "follow",
-    })
-      .then((response) => response.text())
-      .then(() => {
-        redirect("/");
-      })
-      .catch((error) => console.log("error", error));
-  };
-
   return (
     <>
       <h3 className="text-xl font-bold dark:text-white text-center">
         회원정보
       </h3>
-      <form
-        className="flex flex-col gap-2 max-w-sm"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="flex flex-col gap-2 max-w-sm">
         <div>
           <div className="mb-2 block">
             <Label htmlFor="name" value="이름" />

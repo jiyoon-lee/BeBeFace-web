@@ -1,0 +1,19 @@
+.bgHeart {
+  background-image: url("../assets/images/heart.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50px;
+  position: relative;
+  z-index: 1;
+}
+.bgHeart::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  z-index: -1;
+  background-color: white;
+}

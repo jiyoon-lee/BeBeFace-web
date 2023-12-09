@@ -8,11 +8,7 @@ import SitterAvatar from "@/assets/images/sitter_avatar.png";
 import { useAuthContext } from "@/context/AuthContext";
 import { logout } from "@/services/auth";
 
-type Props = {
-  role: "ROLE_USER" | "ROLE_ADMIN";
-  username: string;
-};
-export default function DropdownCom({ role, username }: Props) {
+export default function DropdownCom(role) {
   const router = useRouter();
   const { setIsLogin, setUserInfo } = useAuthContext();
   const logoutHandler = () => {

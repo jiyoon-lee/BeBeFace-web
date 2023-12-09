@@ -11,7 +11,8 @@ const config: Config = {
   theme: {
     colors: {
       yellow: {
-        dark: "#FEBD01",
+        deepDark: "#FEBD01",
+        dark: "#FFB852",
       },
       btn: {
         default: "#FEBD01",

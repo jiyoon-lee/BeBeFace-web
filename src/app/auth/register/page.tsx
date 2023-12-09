@@ -7,21 +7,13 @@ import BabyForm from "@/components/form/BabyForm";
 import MemberForm from "@/components/form/MemberForm";
 import SitterForm from "@/components/form/SitterForm";
 import { signup } from "@/services/auth";
-
-export type FormData = {
-  role: "ROLE_USER" | "ROLE_ADMIN";
-  email: string;
-  name: string;
-  pwd: string;
-  pwdConfirm: string;
-  type: string;
-};
+import { SignupFormData } from "@/types";
 
 export default function SignupPage() {
   const router = useRouter();
   const [additionalType, setAdditionalType] = useState("");
   const changeAdditionalType = (type: string) => setAdditionalType(type);
-  const memberForm = useForm<FormData>({
+  const memberForm = useForm<SignupFormData>({
     mode: "onBlur",
   });
   const submitForm = async () => {
@@ -29,12 +21,12 @@ export default function SignupPage() {
     const name = getValues("name");
     const email = getValues("email");
     const password = getValues("pwd");
-    const role = getValues("role");
+    const authorities = getValues("role");
     signup({
       name,
       email,
       password,
-      role,
+      authorities: [authorities],
     }).then(() => {
       router.push("/auth/signin");
     });

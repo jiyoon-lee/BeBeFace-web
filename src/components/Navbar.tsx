@@ -1,14 +1,13 @@
 "use client";
+
 import Image from "next/image";
-import { useEffect } from "react";
 import Logo from "@/assets/images/logo.png";
 import DropdownCom from "@/components/Dropdown";
-import { useAuthContext } from "@/context/AuthContext";
-import * as token from "@/utils/token";
+import { UserInfoType } from "@/types";
 
 const headerList = [
   {
-    path: "/home",
+    path: "/",
     name: "홈",
   },
   {
@@ -28,12 +27,10 @@ const headerList = [
     name: "베베 앨범",
   },
 ];
-
-export default function Navbar() {
-  const { userInfo, isLogin } = useAuthContext();
-  useEffect(() => {
-    if (token.getToken() == null) return;
-  });
+type Props = {
+  user: UserInfoType | null;
+};
+export default function Navbar({ user }: Props) {
   return (
     <header className="z-10 sticky top-0 bg-[#fff8ee]">
       <nav className="border-gray-200 px-4 lg:px-6 py-3 dark:bg-gray-800">
@@ -42,13 +39,12 @@ export default function Navbar() {
             <Image src={Logo} width={150} alt="BeBeFace Logo" />
           </a>
           <div className="flex items-center lg:order-2">
-            {userInfo && (
+            {user?.name ? (
               <>
-                <span className="mr-3">{userInfo.name}</span>
-                <DropdownCom role={userInfo.role} username={userInfo.name} />
+                <span className="mr-3">{user.name}</span>
+                <DropdownCom role={user.role} />
               </>
-            )}
-            {!isLogin && (
+            ) : (
               <>
                 <a
                   href="/auth/signin"

@@ -3,13 +3,16 @@ import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { FaBabyCarriage } from "react-icons/fa";
 import { LuBaby } from "react-icons/lu";
+import { TfiWrite } from "react-icons/tfi";
 import BabyInfo from "@/components/myPage/BabyInfo";
 import MyInfo from "@/components/myPage/MyInfo";
+import PushAlarm from "@/components/myPage/PushAlarm";
 import SitterInfo from "@/components/myPage/SitterInfo";
 const navList = [
   { name: "me", title: "내 정보", icon: CgProfile },
   { name: "baby", title: "우리 아기 정보", icon: LuBaby },
   { name: "sitter", title: "돌보미 정보", icon: FaBabyCarriage },
+  { name: "alarm", title: "기록하기", icon: TfiWrite },
 ];
 export default function MyPage() {
   const [page, setPage] = useState("me");
@@ -33,9 +36,12 @@ export default function MyPage() {
           </li>
         ))}
       </ul>
-      {page === "me" && <MyInfo />}
-      {page === "baby" && <BabyInfo />}
-      {page === "sitter" && <SitterInfo />}
+      <div className="w-full">
+        {page === "me" && <MyInfo />}
+        {page === "baby" && <BabyInfo />}
+        {page === "sitter" && <SitterInfo />}
+        {page === "alarm" && <PushAlarm />}
+      </div>
     </div>
   );
 }

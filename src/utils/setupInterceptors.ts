@@ -1,4 +1,3 @@
-import { LoginResponseType } from "@/types";
 import {
   isAxiosError,
   AxiosError,

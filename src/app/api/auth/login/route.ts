@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import * as authController from "@/controller/auth.ts";
+import * as authController from "@/controller/auth";
 
 type FailStatus = {
   message: string;

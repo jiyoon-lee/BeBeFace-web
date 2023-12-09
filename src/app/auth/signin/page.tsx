@@ -1,25 +1,8 @@
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
-import { getProviders } from "next-auth/react";
 import React from "react";
 import MyCard from "@/components/MyCard";
-import OauthLogin from "@/components/OauthLogin";
 import LoginForm from "@/components/form/LoginForm";
 
-type Props = {
-  searchParams: {
-    callbackUrl: string;
-  };
-};
-export default async function SigninPage({
-  searchParams: { callbackUrl },
-}: Props) {
-  // const session = await getServerSession(authOptions);
-  // if (session) {
-  //   redirect("/");
-  // }
-  const providers = (await getProviders()) ?? {};
-
+export default async function SigninPage() {
   return (
     <div className="absolute -translate-x-1/2 left-1/2">
       <MyCard>
@@ -33,7 +16,6 @@ export default async function SigninPage({
             or
           </span>
         </div>
-        <OauthLogin providers={providers} callbackUrl={callbackUrl ?? "/"} />
       </MyCard>
     </div>
   );

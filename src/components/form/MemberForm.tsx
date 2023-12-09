@@ -5,12 +5,11 @@ import React, { useState } from "react";
 import { Controller, UseFormReturn } from "react-hook-form";
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import ErrorStyling from "./ErrorStyling";
-import { FormData } from "@/app/auth/register/page";
-
+import { SignupFormData } from "@/types";
 type Props = {
   additionalType: string;
   changeAdditionalType: (type: string) => void;
-  memberForm: UseFormReturn<FormData>;
+  memberForm: UseFormReturn<SignupFormData>;
 };
 
 export default function MemberForm({

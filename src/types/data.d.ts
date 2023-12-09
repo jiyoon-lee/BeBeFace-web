@@ -43,15 +43,32 @@ export type LoginType = {
   password: string;
 };
 
+export type ResponseMemberMe = {
+  authorities: [{ id: number; authorityStatus: "ROLE_USER" | "ROLE_ADMIN" }];
+  email: string;
+  memberId: number;
+  name: string;
+};
+
 export type UserInfoType = {
   email: string;
   name: string;
-  role: string;
+  memberId: number;
+  role: "ROLE_USER" | "ROLE_ADMIN";
 };
 
 export type LoginFormType = {
   email: string;
   password: string;
+};
+
+export type SignupFormData = {
+  role: "ROLE_USER" | "ROLE_ADMIN";
+  email: string;
+  name: string;
+  pwd: string;
+  pwdConfirm: string;
+  type: string;
 };
 
 export type LoginResponseType = {

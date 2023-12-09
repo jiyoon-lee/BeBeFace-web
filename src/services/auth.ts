@@ -6,7 +6,7 @@ type SignupProp = {
   email: string;
   name: string;
   password: string;
-  role: "ROLE_USER" | "ROLE_ADMIN";
+  authorities: ["ROLE_USER" | "ROLE_ADMIN"];
 };
 
 type SigninProp = {
@@ -18,21 +18,25 @@ export async function signup(user: SignupProp) {
   return axios.post(`/auth/register`, user);
 }
 
-export async function signin(user: SigninProp) {
+export async function login(user: SigninProp) {
   return axios
     .post(`/auth/login`, user)
     .then((res) => res.data)
-    .then((data) => saveToken(data.accessToken));
+    .then((data) => {
+      saveToken(data.accessToken);
+    });
 }
 
 export async function logout() {
   return axios //
-    .get(`/auth/logout`, { headers: getHeader() })
+    .get(`/member/logout`, { headers: getHeader() })
     .finally(() => {
       clearToken();
     });
 }
 
 export async function getMe() {
-  return axios.get(`/member/me`, { headers: getHeader() });
+  return axios
+    .get(`/member/me`, { headers: getHeader() })
+    .then((res) => res.data);
 }

@@ -1,71 +1,119 @@
-import Image from "next/image";
-import React from "react";
-import milk from "@/assets/images/milk.png";
-import poop from "@/assets/images/poop.png";
-import shower from "@/assets/images/shower.png";
-import sleep from "@/assets/images/sleep.jpg";
-import { setAttendance } from "@/services/attendance.js";
+import React, { useEffect } from "react";
+import { IoIosTime } from "react-icons/io";
+import { RxExit } from "react-icons/rx";
+import { RxEnter } from "react-icons/rx";
+// import { UserInfoType } from "@/types";
+// import { useAuthContext } from "@/context/AuthContext";
+import {
+  getAttendances,
+  setAttendanceGo,
+  setAttendanceLeave,
+} from "@/services/attendance";
 import { CurrentDateTime } from "@/utils/currentDateTime";
 
 export default function SitterInfo() {
-  const btnList = [
-    { name: "", title: "배병", image: poop },
-    { name: "", title: "분유", image: milk },
-    { name: "", title: "수면", image: sleep },
-    { name: "", title: "목욕", image: shower },
-  ];
-  const commuteList = [
-    { datetime: "", id: "1" },
-    { datetime: "", id: "1" },
-    { datetime: "", id: "1" },
-    { datetime: "", id: "1" },
-    { datetime: "", id: "1" },
-  ];
+  // const { userInfo }: { userInfo: UserInfoType } = useAuthContext();
+  useEffect(() => {
+    getAttendances();
+  }, []);
   const current = new CurrentDateTime();
-  const attendanceHandler = () => {
-    setAttendance().then(console.log);
+  const commuteList = [
+    {
+      id: 1,
+      type: "go",
+      datetime: `${current.getDate()} ${current.getTime()}`,
+    },
+    {
+      id: 2,
+      type: "leave",
+      datetime: `${current.getDate()} ${current.getTime()}`,
+    },
+    {
+      id: 3,
+      type: "go",
+      datetime: `${current.getDate()} ${current.getTime()}`,
+    },
+    {
+      id: 4,
+      type: "leave",
+      datetime: `${current.getDate()} ${current.getTime()}`,
+    },
+    {
+      id: 5,
+      type: "go",
+      datetime: `${current.getDate()} ${current.getTime()}`,
+    },
+
+    {
+      id: 6,
+      type: "leave",
+      datetime: `${current.getDate()} ${current.getTime()}`,
+    },
+  ];
+  const goHandler = () => {
+    setAttendanceGo(3).then(console.log);
+  };
+
+  const leaveHandler = () => {
+    setAttendanceLeave(3).then(console.log);
   };
   return (
     <div>
       <div className="mb-3 p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
         <div className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col justify-center items-center p-6 bg-gray-200 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
-            <p className="text-2xl mb-4">출퇴근 시간</p>
+          <div className="flex flex-col align-center justify-between items-center p-6 bg-gray-200 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
+            <p className="text-2xl mb-4">
+              <IoIosTime className="inline mr-2" />
+              출퇴근 시간
+            </p>
             <p className="text-lg">{current.getDate()}</p>
             <p className="text-xl mb-4">{current.getTime()}</p>
-            <button
+            <div>
+              <button
+                onClick={goHandler}
+                type="button"
+                className="text-gray-900 bg-white hover:bg-yellow-dark border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 mb-2"
+              >
+                <RxEnter className="mr-2" />
+                출근
+              </button>
+              <button
+                onClick={leaveHandler}
+                type="button"
+                className="text-gray-900 bg-white hover:bg-yellow-dark border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 mb-2"
+              >
+                <RxExit className="mr-2" />
+                퇴근
+              </button>
+            </div>
+            {/* <button
               type="button"
               onClick={attendanceHandler}
               className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
             >
               출/퇴근
-            </button>
-          </div>
-          <div className="flex flex-col justify-center items-center p-6 bg-gray-200 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
-            <p className="text-2xl mb-4">알림 보내기</p>
-            <div className="grid grid-cols-2 gap-4">
-              {btnList.map((btn) => (
-                <button
-                  key={btn.name}
-                  type="button"
-                  className="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 mb-2"
-                >
-                  <Image width={50} src={btn.image} alt="alarm button icon" />
-                  {btn.title}
-                </button>
-              ))}
-            </div>
+            </button> */}
           </div>
         </div>
       </div>
       <div className="p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
-        {commuteList.map((commut) => (
+        {commuteList.map((commute) => (
           <div
-            key={commut.id}
-            className="p-4 mb-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+            key={commute.id}
+            className={`p-4 mb-2 ${
+              commute.type === "go" ? "bg-[#FFE7C2]" : "bg-[#C3CE98]"
+            } rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
           >
-            <h5 className="text-md tracking-tight text-gray-900 dark:text-white">
-              Noteworthy technology acquisitions 2021
+            <h5 className="flex items-center text-md tracking-tight text-gray-900 dark:text-white">
+              <div className="mr-3 relative inline-flex items-center justify-center w-8 h-8 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                <span className="font-medium text-gray-600 dark:text-gray-300">
+                  {commute.type === "go" ? "출" : "퇴"}
+                </span>
+              </div>
+              {`
+                ${commute.datetime}에 
+                ${commute.type === "go" ? "출근했습니다." : "퇴근했습니다."}
+              `}
             </h5>
           </div>
         ))}

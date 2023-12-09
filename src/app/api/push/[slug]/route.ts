@@ -4,20 +4,21 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { slug: string } }
 ) {
+  let comment = "문제가 발생했습니다.";
   if (params?.slug) {
     switch (params.slug) {
       case "smile":
-        console.log("아이가 웃습니다.");
+        comment = "웃음이 감지되었습니다. 앨범을 확인해주세요.";
         break;
       case "back":
-        console.log("아기가 위험합니다.");
+        comment = "아기가 위험합니다.";
         break;
       case "cry":
-        console.log("아기가 웁니다.");
+        comment = "아기가 웁니다.";
         break;
       default:
-        console.log("nothing...");
+        comment = `${params.slug}는 잘못된 접근입니다.`;
     }
   }
-  return NextResponse.json("나도 집가고싶두");
+  return NextResponse.json(comment);
 }

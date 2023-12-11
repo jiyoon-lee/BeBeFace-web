@@ -24,24 +24,6 @@ export default function TimelineList({ time }: Prop) {
       author: "sitter",
       content: "우리아기가 배가 아픈가봐요",
     },
-    {
-      id: 4,
-      date: time,
-      author: "sitter",
-      content: "우리아기가 배가 아픈가봐요",
-    },
-    {
-      id: 5,
-      date: time,
-      author: "sitter",
-      content: "우리아기가 배가 아픈가봐요",
-    },
-    {
-      id: 6,
-      date: time,
-      author: "sitter",
-      content: "우리아기가 배가 아픈가봐요",
-    },
   ];
   return (
     <>

@@ -4,6 +4,7 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { slug: string } }
 ) {
+  console.log(request);
   let comment = "문제가 발생했습니다.";
   if (params?.slug) {
     switch (params.slug) {
@@ -11,10 +12,10 @@ export async function GET(
         comment = "웃음이 감지되었습니다. 앨범을 확인해주세요.";
         break;
       case "back":
-        comment = "아기가 위험합니다.";
+        comment = "뒷통수가 감지되었습니다. 아기를 확인해주세요";
         break;
       case "cry":
-        comment = "아기가 웁니다.";
+        comment = "지속적인 울음이 감지되었습니다. 돌보미에게 연락해보세요";
         break;
       default:
         comment = `${params.slug}는 잘못된 접근입니다.`;

@@ -1,3 +1,5 @@
+"use client";
+import { Label, Textarea, TextInput } from "flowbite-react";
 import React from "react";
 import TimelineList from "@/components/TimelineList";
 import { CurrentDateTime } from "@/utils/currentDateTime";
@@ -23,20 +25,21 @@ export default function TimelinePage() {
               </div>
               <div className="relative pl-16">
                 <form>
-                  <div className="sm:col-span-2">
-                    <label
-                      htmlFor="message"
-                      className="block text-md font-semibold leading-6 text-gray-900"
-                    >
-                      하루일기
-                    </label>
-                    <div className="mt-2.5">
-                      <textarea
+                  <div>
+                    <div className="mb-2 block">
+                      <Label htmlFor="name" value="제목" />
+                    </div>
+                    <TextInput id="name" type="text" />
+                  </div>
+                  <div className="mt-2.5">
+                    <div className="sm:col-span-2">
+                      <Label htmlFor="message" value="내용" />
+                      <Textarea
                         name="message"
                         id="message"
                         rows={6}
                         className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      ></textarea>
+                      />
                       <input
                         className="mt-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                         id="file_input"

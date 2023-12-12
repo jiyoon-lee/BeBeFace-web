@@ -21,6 +21,7 @@ export async function GET(
         content = `${params.slug}는 잘못된 접근입니다.`;
     }
 
+    console.log("/api/push까지 들어옴");
     await pushAlarm(content);
   }
 

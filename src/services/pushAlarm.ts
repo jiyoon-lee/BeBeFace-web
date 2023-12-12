@@ -28,7 +28,7 @@ export async function pushAlarm(content: string) {
   }
 }
 
-async function getFcmToken() {
+export async function getFcmToken() {
   const token = await fs.readFile("src/assets/token.txt", "utf8");
   if (token) return Promise.resolve(token.trim());
   else return Promise.reject(new Error("fcm 토큰이 존재하지 않습니다."));

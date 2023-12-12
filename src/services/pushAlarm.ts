@@ -2,15 +2,6 @@ import { NextResponse } from "next/server";
 import { axios } from "@/utils/axios";
 
 export async function pushAlarm(content: string) {
-  console.log("service까지 들어옴", content);
-  console.log(
-    "NEXT_PUBLIC_FCM_DEVICE_TOKEN",
-    process.env.NEXT_PUBLIC_FCM_DEVICE_TOKEN
-  );
-  console.log(
-    "NENT_PUBLIC_FCM_SERVER_KEY",
-    process.env.NENT_PUBLIC_FCM_SERVER_KEY
-  );
   try {
     const token = process.env.NEXT_PUBLIC_FCM_DEVICE_TOKEN;
     if (token) {

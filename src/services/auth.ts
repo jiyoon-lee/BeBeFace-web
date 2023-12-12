@@ -6,7 +6,7 @@ type SignupProp = {
   email: string;
   name: string;
   password: string;
-  authorities: ["ROLE_USER" | "ROLE_ADMIN"];
+  authority: "ROLE_USER" | "ROLE_ADMIN";
 };
 
 type SigninProp = {

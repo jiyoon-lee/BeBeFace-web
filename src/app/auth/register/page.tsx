@@ -26,7 +26,7 @@ export default function SignupPage() {
       name,
       email,
       password,
-      authorities: [authorities],
+      authority: authorities,
     }).then(() => {
       router.push("/auth/signin");
     });

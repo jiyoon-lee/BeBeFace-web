@@ -1,7 +1,9 @@
+import { pushAlarm } from "./pushAlarm";
 import { getHeader } from "@/utils/authorization";
 import { axios } from "@/utils/axios";
 
 export async function setAttendanceGo(memberId: number) {
+  pushAlarm("돌보미가 출근했습니다.");
   return axios
     .post(
       "/attendance/record",
@@ -16,6 +18,7 @@ export async function setAttendanceGo(memberId: number) {
 }
 
 export async function setAttendanceLeave(memberId: number) {
+  pushAlarm("돌보미가 퇴근했습니다.");
   return axios
     .post(
       "/attendance/record/leave ",

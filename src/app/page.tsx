@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-// import styled from "./page.module.css";
 import BeLogo from "@/assets/images/mainpage/belogo.png";
 
 export default function page() {

@@ -4,6 +4,7 @@ import { axios } from "@/utils/axios";
 export async function pushAlarm(content: string) {
   try {
     const token = process.env.NEXT_PUBLIC_FCM_DEVICE_TOKEN;
+    const key = process.env.NENT_PUBLIC_FCM_SERVER_KEY;
     if (token) {
       return axios.post(
         "https://fcm.googleapis.com/fcm/send",
@@ -16,7 +17,7 @@ export async function pushAlarm(content: string) {
         },
         {
           headers: {
-            Authorization: `key=${process.env.NENT_PUBLIC_FCM_SERVER_KEY}`,
+            Authorization: key,
           },
         }
       );

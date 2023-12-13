@@ -32,7 +32,7 @@ export default function SignupPage() {
     });
   };
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center items-center h-full">
       <MyCard>
         <h3 className="text-3xl font-bold dark:text-white text-center mb-5">
           회원가입

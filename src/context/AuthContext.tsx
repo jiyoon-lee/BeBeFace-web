@@ -2,33 +2,33 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import { getMe } from "@/services/auth";
-import { ResponseMemberMe, UserInfoType } from "@/types";
+import { MemberMeResponse, UserInfo } from "@/types";
 
-type Props = {
-  children: React.ReactNode;
+type AuthContextState = {
+  userInfo: UserInfo | null;
+  setUserInfo: (userInfo: UserInfo | null) => void;
 };
-
-// type ContextType = {
-//   useInfo: UserInfoType | null;
-//   setUserInfo: React.Dispatch<React.SetStateAction<UserInfoType | null>>;
-//   isLogin: boolean;
-//   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
-// };
-
-const AuthContext = createContext({});
-export const AuthContextProvider = ({ children }: Props) => {
-  const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
-  const [isLogin, setIsLogin] = useState<boolean>(false);
+const AuthContext = createContext<AuthContextState | null>(null);
+export const AuthContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   useEffect(() => {
-    getMe().then(({ name, email, authorities, memberId }: ResponseMemberMe) => {
-      const authorityStatus = authorities[0].authorityStatus;
-      setUserInfo({ name, email, role: authorityStatus, memberId });
+    getMe().then(({ authority, email, memberId, name }: MemberMeResponse) => {
+      if (memberId) {
+        setUserInfo({
+          email,
+          memberId,
+          name,
+          authority: authority.authorityStatus,
+        });
+      }
     });
   }, []);
   return (
-    <AuthContext.Provider
-      value={{ userInfo, setUserInfo, isLogin, setIsLogin }}
-    >
+    <AuthContext.Provider value={{ userInfo, setUserInfo }}>
       <div className="antialiased dark:bg-gray-900 flex flex-col h-screen">
         <Navbar user={userInfo} />
         {children}

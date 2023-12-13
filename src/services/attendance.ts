@@ -1,41 +1,43 @@
 import { pushAlarm } from "./pushAlarm";
 import { getHeader } from "@/utils/authorization";
-import { axios } from "@/utils/axios";
+import { fetcher } from "@/utils/fetcher";
 
-export async function setAttendanceGo(memberId: number) {
-  pushAlarm("돌보미가 출근했습니다.");
-  return axios
-    .post(
-      "/attendance/record",
-      {
-        memberId,
+type SetAttendance = {
+  memberId: number;
+  type: "go" | "leave";
+};
+
+/**
+ * 돌보미 출근신청 API
+ * @param memberId 돌보미의 ID
+ * @returns
+ */
+export const setAttendance = async ({ memberId, type }: SetAttendance) => {
+  pushAlarm(`돌보미가 ${type === "leave" ? "퇴근" : "출근"}했습니다.`);
+  return await fetcher(
+    `http://192.168.0.42:8080/attendance/record${
+      type === "leave" ? "/leave" : ""
+    }`,
+    {
+      method: "POST",
+      headers: {
+        ...getHeader(),
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      {
-        headers: getHeader(),
-      }
-    )
-    .then(console.log);
-}
-
-export async function setAttendanceLeave(memberId: number) {
-  pushAlarm("돌보미가 퇴근했습니다.");
-  return axios
-    .post(
-      "/attendance/record/leave ",
-      {
+      body: JSON.stringify({
         memberId,
-      },
-      {
-        headers: getHeader(),
-      }
-    )
-    .then(console.log);
-}
+      }),
+    }
+  );
+};
 
-export async function getAttendances() {
-  return axios
-    .get("/attendance/record/list", {
-      headers: getHeader(),
-    })
-    .then(console.log);
+export async function getAttendances(): Promise<SetAttendance[]> {
+  return await fetcher("http://192.168.0.42:8080/attendance/record/list", {
+    headers: {
+      ...getHeader(),
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
 }

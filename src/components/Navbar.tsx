@@ -1,18 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import Logo from "@/assets/images/logo.png";
 import DropdownCom from "@/components/Dropdown";
-import { UserInfoType } from "@/types";
+import { UserInfo } from "@/types";
 
 const headerList = [
   {
     path: "/",
     name: "홈",
-  },
-  {
-    path: "/service",
-    name: "서비스",
   },
   {
     path: "/timeline",
@@ -28,9 +25,10 @@ const headerList = [
   },
 ];
 type Props = {
-  user: UserInfoType | null;
+  user: UserInfo | null;
 };
 export default function Navbar({ user }: Props) {
+  const pathname = usePathname();
   return (
     <header className="z-10 sticky top-0 bg-[#fff8ee]">
       <nav className="border-gray-200 px-4 lg:px-6 py-3 dark:bg-gray-800">
@@ -39,10 +37,10 @@ export default function Navbar({ user }: Props) {
             <Image src={Logo} width={150} alt="BeBeFace Logo" />
           </a>
           <div className="flex items-center lg:order-2">
-            {user?.name ? (
+            {user ? (
               <>
                 <span className="mr-3">{user.name}</span>
-                <DropdownCom role={user.role} />
+                <DropdownCom role={user.authority} />
               </>
             ) : (
               <>
@@ -94,23 +92,30 @@ export default function Navbar({ user }: Props) {
               </svg>
             </button>
           </div>
-          <div
-            className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
-            id="mobile-menu-2"
-          >
-            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-              {headerList.map(({ path, name }) => (
-                <li key={path}>
-                  <a
-                    href={path}
-                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                  >
-                    {name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {user && (
+            <div
+              className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
+              id="mobile-menu-2"
+            >
+              <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                {headerList.map(({ path, name }) => (
+                  <li key={path}>
+                    <a href={path}>
+                      <div
+                        className={`${
+                          pathname === path
+                            ? " bg-btn-default text-white px-7 rounded-md font-bold"
+                            : "text-gray-700"
+                        } py-1`}
+                      >
+                        {name}
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </nav>
     </header>

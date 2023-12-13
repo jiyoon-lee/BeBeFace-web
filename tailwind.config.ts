@@ -13,6 +13,7 @@ const config: Config = {
       yellow: {
         deepDark: "#FEBD01",
         dark: "#FFB852",
+        light: "#FFF8EC",
       },
       btn: {
         default: "#FEBD01",

@@ -1,3 +1,4 @@
+import { MemberMeResponse } from "@/types";
 import { getHeader } from "@/utils/authorization";
 import { axios } from "@/utils/axios";
 import { saveToken, clearToken } from "@/utils/token";
@@ -15,7 +16,8 @@ type SigninProp = {
 };
 
 export async function signup(user: SignupProp) {
-  return axios.post(`/auth/register`, user);
+  // 로그인 할 때
+  return axios.post(`/auth/register`, user).then(console.log);
 }
 
 export async function login(user: SigninProp) {
@@ -35,7 +37,7 @@ export async function logout() {
     });
 }
 
-export async function getMe() {
+export async function getMe(): Promise<MemberMeResponse> {
   return axios
     .get(`/member/me`, { headers: getHeader() })
     .then((res) => res.data);

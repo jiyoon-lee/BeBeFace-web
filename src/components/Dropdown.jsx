@@ -10,10 +10,10 @@ import { logout } from "@/services/auth";
 
 export default function DropdownCom(role) {
   const router = useRouter();
-  const { setIsLogin, setUserInfo } = useAuthContext();
+  const { setUserInfo } = useAuthContext();
+
   const logoutHandler = () => {
     logout().finally(() => {
-      setIsLogin(false);
       setUserInfo(null);
       router.push("/");
     });

@@ -2,17 +2,14 @@ import React, { useEffect } from "react";
 import { IoIosTime } from "react-icons/io";
 import { RxExit } from "react-icons/rx";
 import { RxEnter } from "react-icons/rx";
-// import { UserInfoType } from "@/types";
-// import { useAuthContext } from "@/context/AuthContext";
-import {
-  getAttendances,
-  setAttendanceGo,
-  setAttendanceLeave,
-} from "@/services/attendance";
+import { useAuthContext } from "@/context/AuthContext";
+import { getAttendances, setAttendance } from "@/services/attendance";
 import { CurrentDateTime } from "@/utils/currentDateTime";
+// import { useSWRConfig } from "swr";
 
 export default function SitterInfo() {
-  // const { userInfo }: { userInfo: UserInfoType } = useAuthContext();
+  const { mutate } = useSWRConfig();
+  const { userInfo } = useAuthContext();
   useEffect(() => {
     getAttendances();
   }, []);
@@ -50,12 +47,10 @@ export default function SitterInfo() {
       datetime: `${current.getDate()} ${current.getTime()}`,
     },
   ];
-  const goHandler = () => {
-    setAttendanceGo(3).then(console.log);
-  };
-
-  const leaveHandler = () => {
-    setAttendanceLeave(3).then(console.log);
+  const attendanceHandler = (type: "go" | "leave") => {
+    setAttendance({ memberId: userInfo.memberId, type }).then(() => {
+      mutate("http://192.168.0.42:8080/attendance/record/list");
+    });
   };
   return (
     <div>
@@ -70,7 +65,7 @@ export default function SitterInfo() {
             <p className="text-xl mb-4">{current.getTime()}</p>
             <div>
               <button
-                onClick={goHandler}
+                onClick={() => attendanceHandler("go")}
                 type="button"
                 className="text-gray-900 bg-white hover:bg-yellow-dark border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 mb-2"
               >
@@ -78,7 +73,7 @@ export default function SitterInfo() {
                 출근
               </button>
               <button
-                onClick={leaveHandler}
+                onClick={() => attendanceHandler("leave")}
                 type="button"
                 className="text-gray-900 bg-white hover:bg-yellow-dark border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 mb-2"
               >

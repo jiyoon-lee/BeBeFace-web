@@ -26,9 +26,9 @@ export default function RootLayout({
       <body>
         <LoadingContextProvider>
           <AuthContextProvider>
-            <main className="p-10 h-auto pt-10 grow">
+            <main className="p-10 h-auto grow">
               <SWRConfigContext>
-                <div className="max-w-5xl mx-auto">{children}</div>
+                <div className="max-w-4xl mx-auto h-full">{children}</div>
               </SWRConfigContext>
             </main>
           </AuthContextProvider>

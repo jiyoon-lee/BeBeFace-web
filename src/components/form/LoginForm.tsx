@@ -1,5 +1,5 @@
 "use client";
-import { Button, Checkbox, TextInput, Label } from "flowbite-react";
+import { Button, TextInput, Label } from "flowbite-react";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { login } from "@/services/auth";
@@ -14,12 +14,12 @@ export default function LoginForm() {
 
   const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
     login(data).then(() => {
-      window.location.href = "/";
+      window.location.href = "/home";
     });
   };
   return (
     <form
-      className="w-96 flex flex-col gap-4 max-w-sm"
+      className="w-96 flex flex-col gap-4 max-w-sm pt-10"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div>
@@ -44,11 +44,7 @@ export default function LoginForm() {
         />
         {errors.password && <div>비밀번호를 입력해주세요</div>}
       </div>
-      <div className="flex items-center gap-2">
-        <Checkbox id="remember" />
-        <Label htmlFor="remember">아이디 저장</Label>
-      </div>
-      <Button className="bg-[#FDBD02] focus:bg-[#fda502]" type="submit">
+      <Button className="bg-[#FEBD01] focus:bg-[#fda502] mt-10" type="submit">
         로그인
       </Button>
     </form>

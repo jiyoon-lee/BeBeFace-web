@@ -4,18 +4,12 @@ import LoginForm from "@/components/form/LoginForm";
 
 export default async function SigninPage() {
   return (
-    <div className="absolute -translate-x-1/2 left-1/2">
+    <div className="flex justify-center items-center h-full">
       <MyCard>
         <h3 className="text-3xl font-bold dark:text-white text-center">
           로그인
         </h3>
         <LoginForm />
-        <div className="inline-flex items-center justify-center w-full">
-          <hr className="w-full h-px my-5 bg-gray-200 border-0 dark:bg-gray-700" />
-          <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">
-            or
-          </span>
-        </div>
       </MyCard>
     </div>
   );

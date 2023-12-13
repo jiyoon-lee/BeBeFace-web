@@ -13,6 +13,7 @@ type FormData = {
 
 export default function BabyForm() {
   const [open, setOpen] = useState(false);
+  const [babyInfo, setBabyInfo] = useState({});
 
   const {
     register,

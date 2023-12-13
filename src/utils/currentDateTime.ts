@@ -32,4 +32,7 @@ export class CurrentDateTime {
   getTime() {
     return this.ampm + " " + this.hours + ":" + this.minutes;
   }
+  getDateDash() {
+    return `${this.year}-${this.month}-${this.day}`;
+  }
 }

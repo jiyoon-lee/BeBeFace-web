@@ -1,4 +1,5 @@
 import { pushAlarm } from "./pushAlarm";
+import { Attendace } from "@/types";
 import { getHeader } from "@/utils/authorization";
 import { fetcher } from "@/utils/fetcher";
 
@@ -32,12 +33,50 @@ export const setAttendance = async ({ memberId, type }: SetAttendance) => {
   );
 };
 
-export async function getAttendances(): Promise<SetAttendance[]> {
+export async function getAttendances(): Promise<Attendace[] | undefined> {
   return await fetcher("http://192.168.0.42:8080/attendance/record/list", {
     headers: {
       ...getHeader(),
       Accept: "application/json",
       "Content-Type": "application/json",
     },
+  }).then((res) => {
+    if (Array.isArray(res) && res.length > 0) {
+      return res.map(({ member, id, attendance, leaveTime }) => {
+        return {
+          name: member.name,
+          email: member.email,
+          id: id,
+          isGo: areArraysEqual(attendance, leaveTime),
+          date: transDate(leaveTime),
+        };
+      });
+    }
   });
 }
+const transDate = (leaveTime: number[]) => {
+  return `${leaveTime[0]}년 ${leaveTime[1]}월 ${leaveTime[2]}일 ${
+    leaveTime[3] > 12
+      ? "PM " +
+        (leaveTime[3] - 12 < 10 ? "0" + (leaveTime[3] - 12) : leaveTime[3] - 12)
+      : "AM " + (leaveTime[3] < 10 ? "0" + leaveTime[3] : leaveTime[3])
+  }:${leaveTime[4] < 10 ? "0" + leaveTime[4] : leaveTime[4]}:${
+    leaveTime[5] < 10 ? "0" + leaveTime[5] : leaveTime[5]
+  }`;
+};
+const areArraysEqual = (goArr: number[], leaveArr: number[]) => {
+  // 두 배열의 길이가 다르면 동일하지 않다고 판단
+  if (goArr.length !== leaveArr.length) {
+    return false;
+  }
+
+  // 각 요소를 순회하면서 비교
+  for (let i = 0; i < goArr.length; i++) {
+    if (goArr[i] !== leaveArr[i]) {
+      return false;
+    }
+  }
+
+  // 모든 요소가 일치하면 동일한 배열로 판단
+  return true;
+};

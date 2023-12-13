@@ -1,24 +1,21 @@
-// 사용자
-export type User = {
-  id: number;
-  name: string;
-  email: string;
-  password: string;
-  role: string;
-  member_id?: number;
-};
-
 export type SignupType = {
   password: string;
   name: string;
   email: string;
   role: string;
 };
+
+export type BabyFormData = {
+  name: string;
+  birth: string;
+  etc: string;
+  memberId?: number;
+};
 export type LoginType = {
   email: string;
   password: string;
 };
-export type UserInfo = {
+export type User = {
   email: string;
   name: string;
   memberId: number;
@@ -66,5 +63,27 @@ export type MemberMeResponse = {
   authority: { id: number; authorityStatus: "ROLE_USER" | "ROLE_ADMIN" };
   email: string;
   memberId: number;
+  name: string;
+};
+
+export type DiaryForm = {
+  title: string;
+  content: string;
+  file: string;
+};
+
+export type TimelineResponse = {
+  category: string;
+  content: string;
+  date: number;
+  memberId: number;
+  role: "ROLE_USER" | "ROLE_ADMIN";
+};
+
+export type Attendace = {
+  date: string;
+  email: string;
+  id: number;
+  isGo: boolean;
   name: string;
 };

@@ -27,7 +27,7 @@ export async function login(body: LoginType) {
   if (!isUser) {
     return Promise.reject({ status: 409, message: "Invalid user or password" });
   }
-  const user: User = isUser.dataValues;
+  const user = isUser.dataValues;
   const isValidPassword = bcrypt.compareSync(password, user.password);
   if (!isValidPassword) {
     return Promise.reject({ status: 401, message: "Invalid user or password" });
@@ -41,11 +41,11 @@ export async function login(body: LoginType) {
 }
 
 export async function createJwtToken({
-  id,
+  memberId,
   name,
   email,
 }: User): Promise<string> {
-  return new SignJWT({ id, name, email })
+  return new SignJWT({ memberId, name, email })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setIssuer("urn:example:issuer")

@@ -5,16 +5,16 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import ParentAvatar from "@/assets/images/parent_avatar.png";
 import SitterAvatar from "@/assets/images/sitter_avatar.png";
-import { useAuthContext } from "@/context/AuthContext";
+import { useUserState } from "@/context/UserContext";
 import { logout } from "@/services/auth";
 
 export default function DropdownCom(role) {
   const router = useRouter();
-  const { setUserInfo } = useAuthContext();
+  const [setUser] = useUserState();
 
   const logoutHandler = () => {
     logout().finally(() => {
-      setUserInfo(null);
+      setUser(null);
       router.push("/");
     });
   };

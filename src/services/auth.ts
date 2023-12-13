@@ -15,9 +15,8 @@ type SigninProp = {
   password: string;
 };
 
-export async function signup(user: SignupProp) {
-  // 로그인 할 때
-  return axios.post(`/auth/register`, user).then(console.log);
+export async function signup(user: SignupProp): Promise<MemberMeResponse> {
+  return axios.post(`/auth/register`, user).then((res) => res.data);
 }
 
 export async function login(user: SigninProp) {

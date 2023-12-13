@@ -17,8 +17,8 @@ const navList = [
 export default function MyPage() {
   const [page, setPage] = useState("me");
   return (
-    <div className="md:flex">
-      <ul className="basis-1/5 flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0">
+    <div className="md:flex max-w-4xl mx-auto h-full">
+      <ul className="basis-1/4 flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0">
         {navList.map((nav) => (
           <li key={nav.name}>
             <a

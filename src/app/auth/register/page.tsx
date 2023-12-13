@@ -7,13 +7,18 @@ import BabyForm from "@/components/form/BabyForm";
 import MemberForm from "@/components/form/MemberForm";
 import SitterForm from "@/components/form/SitterForm";
 import { signup } from "@/services/auth";
-import { SignupFormData } from "@/types";
+import { addBaby } from "@/services/baby";
+import { BabyFormData, SignupFormData } from "@/types";
 
 export default function SignupPage() {
   const router = useRouter();
   const [additionalType, setAdditionalType] = useState("");
+  const [isBaby, setIsBaby] = useState(false);
   const changeAdditionalType = (type: string) => setAdditionalType(type);
   const memberForm = useForm<SignupFormData>({
+    mode: "onBlur",
+  });
+  const babyForm = useForm<BabyFormData>({
     mode: "onBlur",
   });
   const submitForm = async () => {
@@ -22,14 +27,32 @@ export default function SignupPage() {
     const email = getValues("email");
     const password = getValues("pwd");
     const authorities = getValues("role");
-    signup({
-      name,
-      email,
-      password,
-      authority: authorities,
-    }).then(() => {
+    try {
+      const { memberId } = await signup({
+        name,
+        email,
+        password,
+        authority: authorities,
+      });
+      if (isBaby) {
+        const { getValues } = babyForm;
+        const name = getValues("name");
+        const birth = getValues("birth");
+        const etc = getValues("etc");
+        addBaby({
+          name,
+          birth,
+          etc,
+          memberId,
+        }).finally(() => {
+          router.push("/auth/signin");
+        });
+      } else {
+        router.push("/auth/signin");
+      }
+    } catch (e) {
       router.push("/auth/signin");
-    });
+    }
   };
   return (
     <div className="flex justify-center items-center h-full">
@@ -55,7 +78,15 @@ export default function SignupPage() {
           </figure>
           {additionalType && (
             <figure className="w-96 p-8 bg-white border-b border-gray-200 md:rounded-lg dark:bg-gray-800 dark:border-gray-700">
-              {additionalType === "baby" ? <BabyForm /> : <SitterForm />}
+              {additionalType === "baby" ? (
+                <BabyForm
+                  babyForm={babyForm}
+                  isBaby={isBaby}
+                  setIsBaby={setIsBaby}
+                />
+              ) : (
+                <SitterForm />
+              )}
             </figure>
           )}
         </div>

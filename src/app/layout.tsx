@@ -1,9 +1,9 @@
 "use clinet";
 import type { Metadata } from "next";
 import "./globals.css";
-import { AuthContextProvider } from "@/context/AuthContext";
 import { LoadingContextProvider } from "@/context/LoadingContext";
 import SWRConfigContext from "@/context/SWRConfigContext";
+import { UserContextProvider } from "@/context/UserContext";
 import { sequelize } from "@/db/database.js";
 
 sequelize.sync();
@@ -25,11 +25,11 @@ export default function RootLayout({
       </head>
       <body>
         <LoadingContextProvider>
-          <AuthContextProvider>
+          <UserContextProvider>
             <main className="h-auto grow">
               <SWRConfigContext>{children}</SWRConfigContext>
             </main>
-          </AuthContextProvider>
+          </UserContextProvider>
         </LoadingContextProvider>
       </body>
     </html>

@@ -115,7 +115,7 @@ export default function page() {
     },
   ];
   return (
-    <div>
+    <div className="max-w-4xl mx-auto">
       <div className={styled.container}>
         <div className={styled.wrapper}>
           <div className={styled.card}>
@@ -147,7 +147,7 @@ export default function page() {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-3 mb-8">
+      <div className="mt-7 grid grid-cols-3 gap-3 mb-8">
         {rhythmData.map((rhythm) => (
           <WeeklyGraph
             key={rhythm.id}

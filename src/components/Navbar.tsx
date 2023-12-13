@@ -4,7 +4,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Logo from "@/assets/images/logo.png";
 import DropdownCom from "@/components/Dropdown";
-import { UserInfo } from "@/types";
+import { User } from "@/types";
 
 const headerList = [
   {
@@ -25,7 +25,7 @@ const headerList = [
   },
 ];
 type Props = {
-  user: UserInfo | null;
+  user: User | null;
 };
 export default function Navbar({ user }: Props) {
   const pathname = usePathname();

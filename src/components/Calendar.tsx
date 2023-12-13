@@ -10,7 +10,7 @@ export default function Calendar() {
   return (
     <>
       <DiaryCard onClose={() => setOpenModal(false)} openModal={openModal} />
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-4/5 m-auto">
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-auto">
         <table className="table-fixed w-full text-sm text-left rtl:text-right text-[#969696]">
           <thead className="border text-[#969696] text-xs uppercase bg-white border-solid border-[#E8E8E8] dark:text-white">
             <tr>

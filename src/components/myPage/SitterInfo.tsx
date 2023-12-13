@@ -8,7 +8,7 @@ import { CurrentDateTime } from "@/utils/currentDateTime";
 // import { useSWRConfig } from "swr";
 
 export default function SitterInfo() {
-  const { mutate } = useSWRConfig();
+  // const { mutate } = useSWRConfig();
   const { userInfo } = useAuthContext();
   useEffect(() => {
     getAttendances();
@@ -49,7 +49,7 @@ export default function SitterInfo() {
   ];
   const attendanceHandler = (type: "go" | "leave") => {
     setAttendance({ memberId: userInfo.memberId, type }).then(() => {
-      mutate("http://192.168.0.42:8080/attendance/record/list");
+      // mutate("http://192.168.0.42:8080/attendance/record/list");
     });
   };
   return (

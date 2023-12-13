@@ -25,6 +25,7 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.6.5",
     "next": "^14.0.1",
+    "next-videos": "^1.4.1",
     "node-gyp": "^10.0.1",
     "react": "^18",
     "react-content-loader": "^6.2.1",

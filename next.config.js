@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withVideos = require("next-videos");
 const nextConfig = {
   reactStrictMode: true,
   compiler: (() => {
@@ -28,3 +30,4 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+module.exports = withVideos();

@@ -6,7 +6,9 @@ import poop from "@/assets/images/poop.png";
 import shower from "@/assets/images/shower.png";
 import sleep from "@/assets/images/sleep.png";
 import { useUserState } from "@/context/UserContext";
+import { pushAlarm } from "@/services/pushAlarm";
 import { setTimeline } from "@/services/timeline";
+
 const btnList = [
   { name: "poop", title: "배변", image: poop },
   { name: "milk", title: "분유", image: milk },
@@ -18,6 +20,24 @@ export default function PushAlarm() {
   const [category, setCategory] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const submitHandler = () => {
+    let content = "";
+    switch (category) {
+      case "milk":
+        content = "아이가 밥을 먹습니다.";
+        break;
+      case "poop":
+        content = "아이가 배변 했어요.";
+        break;
+      case "sleep":
+        content = "아이가 잠에 들었어요.";
+        break;
+      case "shower":
+        content = "아이가 목욕을 했어요.";
+        break;
+      default:
+        content = "선택된 카테고리가 없습니다.";
+    }
+    pushAlarm(content);
     if (user) setTimeline({ memberId: user.memberId, content, category });
   };
   return (

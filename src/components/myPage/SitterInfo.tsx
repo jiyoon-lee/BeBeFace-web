@@ -4,6 +4,7 @@ import { RxExit } from "react-icons/rx";
 import { RxEnter } from "react-icons/rx";
 import { useUserState } from "@/context/UserContext";
 import { getAttendances, setAttendance } from "@/services/attendance";
+import { pushAlarm } from "@/services/pushAlarm";
 import { Attendace } from "@/types";
 import { CurrentDateTime } from "@/utils/currentDateTime";
 // import { useSWRConfig } from "swr";
@@ -25,6 +26,7 @@ export default function SitterInfo() {
   const current = new CurrentDateTime();
 
   const attendanceHandler = (type: "go" | "leave") => {
+    pushAlarm(`돌보미가 ${type === "go" ? "출근" : "퇴근"}했습니다.`);
     if (user) {
       setAttendance({ memberId: user.memberId, type }).then(() => {
         // mutate("http://192.168.0.42:8080/attendance/record/list");

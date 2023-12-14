@@ -1,1 +1,1 @@
-/192.168.0.42:8080/* https://example.com/:splat 200
+/auth/* https://example.com/:splat 200

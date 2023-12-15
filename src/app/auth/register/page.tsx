@@ -6,11 +6,15 @@ import MyCard from "@/components/MyCard";
 import BabyForm from "@/components/form/BabyForm";
 import MemberForm from "@/components/form/MemberForm";
 import SitterForm from "@/components/form/SitterForm";
+import { useAlertState } from "@/context/AlertContext";
+import { useLoadingState } from "@/context/LoadingContext";
 import { signup } from "@/services/auth";
 import { addBaby } from "@/services/baby";
 import { BabyFormData, SignupFormData } from "@/types";
 
 export default function SignupPage() {
+  const { setIsLoading } = useLoadingState();
+  const { setAlert } = useAlertState();
   const router = useRouter();
   const [additionalType, setAdditionalType] = useState("");
   const [isBaby, setIsBaby] = useState(false);
@@ -22,6 +26,7 @@ export default function SignupPage() {
     mode: "onBlur",
   });
   const submitForm = async () => {
+    setIsLoading(true);
     const { getValues } = memberForm;
     const name = getValues("name");
     const email = getValues("email");
@@ -46,12 +51,19 @@ export default function SignupPage() {
           memberId,
         }).finally(() => {
           router.push("/auth/signin");
+          setIsLoading(false);
         });
       } else {
         router.push("/auth/signin");
+        setIsLoading(false);
       }
     } catch (e) {
-      router.push("/auth/signin");
+      setAlert({
+        type: "danger",
+        message: "회원가입에 실패했습니다. 관리자에게 문의해주세요.",
+      });
+      setIsLoading(false);
+      memberForm.reset();
     }
   };
   return (

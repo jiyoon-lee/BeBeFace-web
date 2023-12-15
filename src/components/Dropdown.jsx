@@ -7,15 +7,17 @@ import ParentAvatar from "@/assets/images/parent_avatar.png";
 import SitterAvatar from "@/assets/images/sitter_avatar.png";
 import { useUserState } from "@/context/UserContext";
 import { logout } from "@/services/auth";
+import { clearToken } from "@/utils/token";
 
 export default function DropdownCom(role) {
   const router = useRouter();
-  const [setUser] = useUserState();
+  const { setUser } = useUserState();
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
     logout().finally(() => {
-      setUser(null);
+      clearToken();
       router.push("/");
+      setUser(null);
     });
   };
   return (

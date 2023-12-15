@@ -4,7 +4,10 @@ import Navbar from "@/components/Navbar";
 import { getMe } from "@/services/auth";
 import { MemberMeResponse, User } from "@/types";
 
-type UserContextState = [User | null, (user: User | null) => void];
+type UserContextState = {
+  user: User | null;
+  setUser: (user: User | null) => void;
+};
 
 const UserContext = createContext<UserContextState | null>(null);
 
@@ -27,7 +30,7 @@ export function UserContextProvider({
     });
   }, []);
   return (
-    <UserContext.Provider value={[user, setUser]}>
+    <UserContext.Provider value={{ user, setUser }}>
       <div className="antialiased dark:bg-gray-900 flex flex-col h-screen">
         <Navbar user={user} />
         {children}

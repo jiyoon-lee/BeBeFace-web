@@ -1,24 +1,42 @@
 "use client";
 import { Label, Textarea, TextInput } from "flowbite-react";
 import React, { useEffect, useState } from "react";
+import useSWR from "swr";
 import TimelineList from "@/components/TimelineList";
+import { useAlertState } from "@/context/AlertContext";
+import { useLoadingState } from "@/context/LoadingContext";
 import { setDiary } from "@/services/diary";
-import { getTimeline } from "@/services/timeline";
 import { TimelineResponse } from "@/types";
 import { CurrentDateTime } from "@/utils/currentDateTime";
 
 export default function TimelinePage() {
+  const { setIsLoading } = useLoadingState();
+  const { setAlert } = useAlertState();
   const date = new CurrentDateTime();
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [file, setFile] = useState<File | undefined>();
   const [timelines, setTimelines] = useState<TimelineResponse[]>();
+  const { data, isLoading } = useSWR<TimelineResponse[]>(
+    `/timelines?date=${date.getDateDash()}`
+  );
+  setIsLoading(isLoading);
   useEffect(() => {
-    getTimeline(date.getDateDash()).then(setTimelines);
-  }, []);
+    if (Array.isArray(data) && data.length > 0) setTimelines(data.reverse());
+  }, [data]);
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setDiary({ file, title, content });
+    setIsLoading(true);
+    setDiary({ file, title, content })
+      .then(() => {
+        setAlert({ type: "success", message: "다이어리가 추가되었습니다." });
+      })
+      .catch(() => {
+        setAlert({ type: "danger", message: "다이어리 추가에 실패했습니다." });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   const fileHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;

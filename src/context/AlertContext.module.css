@@ -1,0 +1,40 @@
+.container {
+  position: absolute;
+  left: 2.8%;
+  bottom: 5%;
+  z-index: 1;
+  padding: 20px;
+  color: white;
+  border-radius: 15px;
+}
+
+.danger {
+  background-color: #f9655a;
+}
+
+.success {
+  background-color: #4eb986;
+}
+
+.info {
+  background-color: #58a8f6;
+}
+
+.warning {
+  background-color: #ffaa45;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}

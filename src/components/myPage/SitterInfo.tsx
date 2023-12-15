@@ -2,79 +2,102 @@ import React, { useEffect, useState } from "react";
 import { IoIosTime } from "react-icons/io";
 import { RxExit } from "react-icons/rx";
 import { RxEnter } from "react-icons/rx";
+import useSWR, { useSWRConfig } from "swr";
+import { useAlertState } from "@/context/AlertContext";
+import { useLoadingState } from "@/context/LoadingContext";
 import { useUserState } from "@/context/UserContext";
-import { getAttendances, setAttendance } from "@/services/attendance";
+import { mapAttendances, setAttendance } from "@/services/attendance";
 import { pushAlarm } from "@/services/pushAlarm";
-import { Attendace } from "@/types";
+import { Attendace, AttendanceResponse } from "@/types";
 import { CurrentDateTime } from "@/utils/currentDateTime";
-// import { useSWRConfig } from "swr";
 
 export default function SitterInfo() {
-  // const { mutate } = useSWRConfig();
-  const [user] = useUserState();
+  const { setIsLoading } = useLoadingState();
+  const { setAlert } = useAlertState();
+  const { user } = useUserState();
+  const { mutate } = useSWRConfig();
   const [btnDis, setBtnDis] = useState("leave");
   const [attendances, setAttendances] = useState<Attendace[]>();
+
+  const { data } = useSWR<AttendanceResponse[]>("/attendance/record/list");
   useEffect(() => {
-    getAttendances().then((res?: Attendace[]) => {
-      if (res) {
-        const arr = res.reverse();
-        setAttendances(arr);
-        if (arr[0].isGo) setBtnDis("go");
-      }
-    });
-  }, []);
+    if (Array.isArray(data) && data.length > 0) {
+      const newArr = mapAttendances(data);
+      setAttendances(newArr);
+      setBtnDis(newArr[0].isGo ? "leave" : "go");
+    }
+  }, [data]);
   const current = new CurrentDateTime();
 
   const attendanceHandler = (type: "go" | "leave") => {
+    setIsLoading(true);
     pushAlarm(`돌보미가 ${type === "go" ? "출근" : "퇴근"}했습니다.`);
     if (user) {
-      setAttendance({ memberId: user.memberId, type }).then(() => {
-        // mutate("http://192.168.0.42:8080/attendance/record/list");
-      });
+      setAttendance({ memberId: user.memberId, type })
+        .then(() => {
+          mutate("/attendance/record/list");
+          setAlert({
+            type: "success",
+            message: `${type === "go" ? "출근" : "퇴근"}요청을 완료했습니다.`,
+          });
+        })
+        .catch(() => {
+          setAlert({
+            type: "danger",
+            message: `${type === "go" ? "출근" : "퇴근"}요청에 실패했습니다.`,
+          });
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
     }
   };
   return (
     <div>
-      <div className="mb-3 p-6 bg-white border-gray-300 border-2 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
-        <div className="grid grid-cols-2">
-          <div className="py-5 grid content-center text-center bg-[#FFECE5] text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-l-lg w-full">
-            <p className="text-2xl mb-4">
-              <IoIosTime className="inline mr-2" />
-              출퇴근 시간
-            </p>
-            <p className="text-lg">{current.getDate()}</p>
-            <p className="text-xl">{current.getTime()}</p>
-          </div>
-          <div className="flex items-center gap-3 p-6 justify-center bg-[#E4F0FF] text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-r-lg w-full">
-            <button
-              onClick={() => attendanceHandler("go")}
-              type="button"
-              disabled={btnDis === "go"}
-              className={`${
-                btnDis === "go"
-                  ? "text-white bg-gray-300"
-                  : "text-gray-900 bg-white hover:bg-yellow-dark"
-              } border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-md px-6 py-5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
-            >
-              <RxEnter className="mr-2" />
-              출근
-            </button>
-            <button
-              onClick={() => attendanceHandler("leave")}
-              type="button"
-              disabled={btnDis === "leave"}
-              className={`${
-                btnDis === "leave"
-                  ? "text-white bg-gray-300"
-                  : "text-gray-900 bg-white hover:bg-yellow-dark"
-              } border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-md px-6 py-5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
-            >
-              <RxExit className="mr-2" />
-              퇴근
-            </button>
+      {user?.authority === "ROLE_USER" && (
+        <div className="mb-3 p-6 bg-white border-gray-300 border-2 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
+          <div className="grid grid-cols-2">
+            <div className="py-5 grid bg-yellow-light content-center border-r-0 border-gray-300 border-2 text-center text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-l-lg w-full">
+              <p className="text-2xl mb-4">
+                <IoIosTime className="inline mr-2" />
+                출퇴근 시간
+              </p>
+              <p className="text-lg">{current.getDate()}</p>
+              <p className="text-xl">{current.getTime()}</p>
+            </div>
+            <div className="flex bg-yellow-light items-center gap-3 p-6 border-gray-300 border-2 justify-center text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-r-lg w-full">
+              <button
+                onClick={() => attendanceHandler("go")}
+                type="button"
+                disabled={btnDis === "go"}
+                className={`${
+                  btnDis === "go"
+                    ? "text-white bg-gray-300"
+                    : "text-gray-900 bg-white hover:bg-yellow-dark"
+                } border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-md px-6 py-5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
+              >
+                <RxEnter className="mr-2" />
+                출근
+              </button>
+              <button
+                onClick={() => attendanceHandler("leave")}
+                type="button"
+                disabled={btnDis === "leave"}
+                className={`${
+                  btnDis === "leave"
+                    ? "text-white bg-gray-300"
+                    : "text-gray-900 bg-white hover:bg-yellow-dark"
+                } border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-md px-6 py-5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
+              >
+                <RxExit className="mr-2" />
+                퇴근
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <div className="p-6 bg-white border-gray-300 border-2 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
         {attendances ? (
           attendances.map((attendance) => (

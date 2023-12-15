@@ -1,6 +1,7 @@
 "use clinet";
 import type { Metadata } from "next";
 import "./globals.css";
+import AlertContextProvider from "@/context/AlertContext";
 import { LoadingContextProvider } from "@/context/LoadingContext";
 import SWRConfigContext from "@/context/SWRConfigContext";
 import { UserContextProvider } from "@/context/UserContext";
@@ -24,13 +25,17 @@ export default function RootLayout({
         <title>BeBeFace</title>
       </head>
       <body>
-        <LoadingContextProvider>
-          <UserContextProvider>
-            <main className="h-auto grow">
-              <SWRConfigContext>{children}</SWRConfigContext>
-            </main>
-          </UserContextProvider>
-        </LoadingContextProvider>
+        <AlertContextProvider>
+          <LoadingContextProvider>
+            <UserContextProvider>
+              <main className="h-auto grow">
+                <SWRConfigContext>
+                  <SWRConfigContext>{children}</SWRConfigContext>
+                </SWRConfigContext>
+              </main>
+            </UserContextProvider>
+          </LoadingContextProvider>
+        </AlertContextProvider>
       </body>
     </html>
   );

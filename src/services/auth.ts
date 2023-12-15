@@ -1,7 +1,7 @@
 import { MemberMeResponse } from "@/types";
 import { getHeader } from "@/utils/authorization";
 import { axios } from "@/utils/axios";
-import { saveToken, clearToken } from "@/utils/token";
+import { saveToken } from "@/utils/token";
 
 type SignupProp = {
   email: string;
@@ -29,11 +29,7 @@ export async function login(user: SigninProp) {
 }
 
 export async function logout() {
-  return axios //
-    .get(`/member/logout`, { headers: getHeader() })
-    .finally(() => {
-      clearToken();
-    });
+  return axios.get(`/member/logout`, { headers: getHeader() });
 }
 
 export async function getMe(): Promise<MemberMeResponse> {

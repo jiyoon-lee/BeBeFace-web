@@ -9,13 +9,13 @@ import MyInfo from "@/components/myPage/MyInfo";
 import PushAlarm from "@/components/myPage/PushAlarm";
 import SitterInfo from "@/components/myPage/SitterInfo";
 const navList = [
+  { name: "alarm", title: "기록하기", icon: TfiWrite },
+  { name: "sitter", title: "돌보미 정보", icon: FaBabyCarriage },
   { name: "me", title: "내 정보", icon: CgProfile },
   { name: "baby", title: "우리 아기 정보", icon: LuBaby },
-  { name: "sitter", title: "돌보미 정보", icon: FaBabyCarriage },
-  { name: "alarm", title: "기록하기", icon: TfiWrite },
 ];
 export default function MyPage() {
-  const [page, setPage] = useState("me");
+  const [page, setPage] = useState("alarm");
   return (
     <div className="md:flex max-w-4xl mx-auto h-full">
       <ul className="basis-1/4 flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0">

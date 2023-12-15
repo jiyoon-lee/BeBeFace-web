@@ -5,7 +5,6 @@ import { LuMilk } from "react-icons/lu";
 import styled from "./page.module.css";
 import Calendar from "@/components/Calendar";
 import WeeklyGraph from "@/components/WeeklyGraph";
-
 export default function page() {
   const rhythmData = [
     {
@@ -41,7 +40,7 @@ export default function page() {
           pv: 12,
         },
       ],
-      color: "#FF9F39",
+      color: "#00C3FF",
     },
     {
       id: 2,
@@ -49,31 +48,31 @@ export default function page() {
       data: [
         {
           name: "2",
-          pv: 8,
+          pv: 13,
         },
         {
           name: "3",
-          pv: 6,
-        },
-        {
-          name: "1",
-          pv: 12,
-        },
-        {
-          name: "2",
           pv: 14,
         },
         {
-          name: "3",
+          name: "1",
+          pv: 15,
+        },
+        {
+          name: "2",
           pv: 16,
         },
         {
-          name: "18",
-          pv: 8,
+          name: "3",
+          pv: 17,
+        },
+        {
+          name: "1",
+          pv: 18,
         },
         {
           name: "4",
-          pv: 12,
+          pv: 19,
         },
       ],
       color: "#FF9F39",
@@ -83,23 +82,23 @@ export default function page() {
       title: "분유양",
       data: [
         {
-          name: "2",
+          name: "13",
           pv: 100,
         },
         {
-          name: "3",
+          name: "14",
           pv: 110,
         },
         {
-          name: "1",
+          name: "15",
           pv: 90,
         },
         {
-          name: "2",
+          name: "16",
           pv: 110,
         },
         {
-          name: "3",
+          name: "17",
           pv: 150,
         },
         {
@@ -107,7 +106,7 @@ export default function page() {
           pv: 120,
         },
         {
-          name: "4",
+          name: "19",
           pv: 140,
         },
       ],
@@ -116,8 +115,8 @@ export default function page() {
   ];
   return (
     <div className="max-w-4xl mx-auto">
-      <div className={styled.container}>
-        <div className={styled.wrapper}>
+      <div className={styled.container1}>
+        <div className={styled.wrapper1}>
           <div className={styled.card}>
             <GiNightSleep size={60} />
             <p className="mt-3 text-xl text-gray-500 dark:text-gray-400">

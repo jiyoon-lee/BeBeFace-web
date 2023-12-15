@@ -15,7 +15,6 @@ export async function getDiaries(date: string) {
 }
 
 export async function setDiary({ file, title, content }: Props) {
-  console.log("sevice diary", file, title, content);
   return axios
     .post(
       "/diary",

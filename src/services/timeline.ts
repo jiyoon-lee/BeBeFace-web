@@ -11,7 +11,7 @@ export async function getTimeline(date: string) {
     .get(`/timelines?date=${date}`, {
       headers: getHeader(),
     })
-    .then((res) => res.data);
+    .then((res) => res.data.reverse());
 }
 
 export async function setTimeline({ memberId, content, category }: Props) {

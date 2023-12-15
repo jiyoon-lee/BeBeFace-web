@@ -5,6 +5,8 @@ import milk from "@/assets/images/milk.png";
 import poop from "@/assets/images/poop.png";
 import shower from "@/assets/images/shower.png";
 import sleep from "@/assets/images/sleep.png";
+import { useAlertState } from "@/context/AlertContext";
+import { useLoadingState } from "@/context/LoadingContext";
 import { useUserState } from "@/context/UserContext";
 import { pushAlarm } from "@/services/pushAlarm";
 import { setTimeline } from "@/services/timeline";
@@ -16,10 +18,14 @@ const btnList = [
   { name: "shower", title: "목욕", image: shower },
 ];
 export default function PushAlarm() {
-  const [user] = useUserState();
+  const { setIsLoading } = useLoadingState();
+  const { setAlert } = useAlertState();
+  const { user } = useUserState();
   const [category, setCategory] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const submitHandler = () => {
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
     let content = "";
     switch (category) {
       case "milk":
@@ -38,7 +44,25 @@ export default function PushAlarm() {
         content = "선택된 카테고리가 없습니다.";
     }
     pushAlarm(content);
-    if (user) setTimeline({ memberId: user.memberId, content, category });
+    if (user) {
+      setTimeline({ memberId: user.memberId, content, category })
+        .then(() => {
+          setAlert({ type: "success", message: "타임라인이 등록되었습니다." });
+          setCategory("");
+          setContent("");
+        })
+        .catch(() => {
+          setAlert({
+            type: "danger",
+            message: "타임라인 등록에 실패하였습니다.",
+          });
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
+    }
   };
   return (
     <div className="px-10 bg-white border-gray-300 border-2 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">

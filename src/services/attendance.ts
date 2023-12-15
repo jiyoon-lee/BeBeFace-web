@@ -1,5 +1,5 @@
 import { pushAlarm } from "./pushAlarm";
-import { Attendace } from "@/types";
+import { AttendanceResponse } from "@/types";
 import { getHeader } from "@/utils/authorization";
 import { fetcher } from "@/utils/fetcher";
 
@@ -33,27 +33,18 @@ export const setAttendance = async ({ memberId, type }: SetAttendance) => {
   );
 };
 
-export async function getAttendances(): Promise<Attendace[] | undefined> {
-  return await fetcher("http://192.168.0.42:8080/attendance/record/list", {
-    headers: {
-      ...getHeader(),
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  }).then((res) => {
-    if (Array.isArray(res) && res.length > 0) {
-      return res.map(({ member, id, attendance, leaveTime }) => {
-        return {
-          name: member.name,
-          email: member.email,
-          id: id,
-          isGo: areArraysEqual(attendance, leaveTime),
-          date: transDate(leaveTime),
-        };
-      });
-    }
+export const mapAttendances = (arr: AttendanceResponse[]) => {
+  const result = arr.map(({ member, id, attendance, leaveTime }) => {
+    return {
+      name: member.name,
+      email: member.email,
+      id: id,
+      isGo: areArraysEqual(attendance, leaveTime),
+      date: transDate(leaveTime),
+    };
   });
-}
+  return result.reverse();
+};
 const transDate = (leaveTime: number[]) => {
   return `${leaveTime[0]}년 ${leaveTime[1]}월 ${leaveTime[2]}일 ${
     leaveTime[3] > 12

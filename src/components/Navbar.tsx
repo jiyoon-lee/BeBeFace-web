@@ -8,7 +8,7 @@ import { User } from "@/types";
 
 const headerList = [
   {
-    path: "/",
+    path: "/home",
     name: "홈",
   },
   {

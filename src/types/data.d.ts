@@ -11,6 +11,10 @@ export type BabyFormData = {
   etc: string;
   memberId?: number;
 };
+
+export type SitterFormData = {
+  email: string;
+};
 export type LoginType = {
   email: string;
   password: string;
@@ -73,11 +77,11 @@ export type DiaryForm = {
 };
 
 export type TimelineResponse = {
-  category: string;
-  content: string;
-  date: number;
   memberId: number;
   role: "ROLE_USER" | "ROLE_ADMIN";
+  content: string;
+  category: string;
+  dateTime: number[];
 };
 
 export type Attendace = {

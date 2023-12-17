@@ -1,162 +1,49 @@
 "use client";
 import { Modal } from "flowbite-react";
-import React from "react";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+// import DiaryDefault from "@/assets/images/diary_default.png";
+import useSWR from "swr";
+import TimelineList from "./TimelineList";
+import DiaryTest from "@/assets/images/diary_test.jpeg";
+import { TimelineResponse } from "@/types";
+import { CurrentDateTime } from "@/utils/currentDateTime";
 
 type Props = {
   openModal: boolean;
   onClose: () => void;
 };
 export default function DiaryCard({ openModal, onClose }: Props) {
+  const [timelines, setTimelines] = useState<TimelineResponse[]>();
+  const date = new CurrentDateTime();
+
+  const { data } = useSWR<TimelineResponse[]>(
+    `/timelines?dateTime=${date.getDateDash()}`
+  );
+  useEffect(() => {
+    if (Array.isArray(data) && data.length > 0) setTimelines(data.reverse());
+  }, [data]);
   return (
     <>
-      <Modal show={openModal} onClose={onClose}>
-        <Modal.Header>처음으로 바다를 봤어🦭🚢</Modal.Header>
+      <Modal size="5xl" show={openModal} onClose={onClose}>
+        <Modal.Header>📆 2023년 12월 15일</Modal.Header>
         <Modal.Body>
-          <div className="flex justify-center mb-5">
-            <ol className="items-center sm:flex">
-              <li className="relative mb-6 sm:mb-0">
-                <div className="flex items-center">
-                  <div className="z-10 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
-                    <svg
-                      className="w-2.5 h-2.5 text-blue-800 dark:text-blue-300"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                    </svg>
-                  </div>
-                  <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
-                </div>
-                <div className="mt-3 sm:pe-8">
-                  <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                    AM 10:00
-                  </time>
-                  {/* <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                    Get started with dozens of web components and interactive
-                    elements.
-                  </p> */}
-                </div>
-              </li>
-              <li className="relative mb-6 sm:mb-0">
-                <div className="flex items-center">
-                  <div className="z-10 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
-                    <svg
-                      className="w-2.5 h-2.5 text-blue-800 dark:text-blue-300"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                    </svg>
-                  </div>
-                  <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
-                </div>
-                <div className="mt-3 sm:pe-8">
-                  <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                    AM 11:00
-                  </time>
-                  {/* <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                    Get started with dozens of web components and interactive
-                    elements.
-                  </p> */}
-                </div>
-              </li>
-              <li className="relative mb-6 sm:mb-0">
-                <div className="flex items-center">
-                  <div className="z-10 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
-                    <svg
-                      className="w-2.5 h-2.5 text-blue-800 dark:text-blue-300"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                    </svg>
-                  </div>
-                  <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
-                </div>
-                <div className="mt-3 sm:pe-8">
-                  <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                    PM 3:00
-                  </time>
-                  {/* <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                    Get started with dozens of web components and interactive
-                    elements.
-                  </p> */}
-                </div>
-              </li>
-              <li className="relative mb-6 sm:mb-0">
-                <div className="flex items-center">
-                  <div className="z-10 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
-                    <svg
-                      className="w-2.5 h-2.5 text-blue-800 dark:text-blue-300"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                    </svg>
-                  </div>
-                  <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
-                </div>
-                <div className="mt-3 sm:pe-8">
-                  <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                    PM 5:00
-                  </time>
-                  {/* <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                    Get started with dozens of web components and interactive
-                    elements.
-                  </p> */}
-                </div>
-              </li>
-              <li className="relative mb-6 sm:mb-0">
-                <div className="flex items-center">
-                  <div className="z-10 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
-                    <svg
-                      className="w-2.5 h-2.5 text-blue-800 dark:text-blue-300"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                    </svg>
-                  </div>
-                  <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
-                </div>
-                <div className="mt-3 sm:pe-8">
-                  <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                    PM 8:00
-                  </time>
-                  {/* <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                    Get started with dozens of web components and interactive
-                    elements.
-                  </p> */}
-                </div>
-              </li>
-            </ol>
-          </div>
-          <div className="flex">
-            <img
-              className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-              src="https://images.unsplash.com/photo-1518157673009-7ac315280748?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt=""
-            />
-            <div className="p-4 leading-normal bg-[#FFE2F1]">
-              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni
-                reiciendis provident natus incidunt repellendus recusandae
-                necessitatibus. Nostrum cum amet ex? Qui dignissimos cupiditate
-                adipisci atque dolore nulla, iste quisquam. Nihil laboriosam
-                tenetur voluptatem qui eaque labore aperiam, alias quaerat odit
-                ipsam, accusamus ab ratione neque deserunt veniam molestias
-                quibusdam eum.
-              </p>
+          <p className="text-2xl text-center my-3">아기의 기분: 기분 좋음</p>
+          <div className="grid grid-cols-2 overflow-hidden m-2">
+            <div className="bg-yellow-light rounded-l-lg overflow-hidden p-3">
+              <TimelineList timelines={timelines} />
+            </div>
+            <div className="flex flex-col bg-[#FFE2F1] rounded-r-lg overflow-hidden">
+              {/* <Image src={DiaryDefault} alt="diary default image" /> */}
+              <Image src={DiaryTest} alt="diary default image" />
+              <div className="p-4 leading-normal">
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  오늘은 일찍 일어났다. 아기가 일어나서 웃는 모습이 기분 좋았다.
+                  아침 식사를 준비하고, 우리 가족과 함께 아침 식사를 즐겼다.외출
+                  시간! 아기를 유모차에 태워 공원으로 나갔다. 새로 피어난 꽃들이
+                  보기 좋았다. 아기는 색다른 환경에서 즐거워하는 것 같다.
+                </p>
+              </div>
             </div>
           </div>
         </Modal.Body>

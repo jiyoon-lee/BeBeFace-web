@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import Logo from "@/assets/images/logo.png";
 import DropdownCom from "@/components/Dropdown";
 import { User } from "@/types";
@@ -13,7 +14,7 @@ const headerList = [
   },
   {
     path: "/timeline",
-    name: "타임라인",
+    name: "하루일기",
   },
   {
     path: "/calendar",
@@ -28,6 +29,7 @@ type Props = {
   user: User | null;
 };
 export default function Navbar({ user }: Props) {
+  const [openNavbar, setOpenNavbar] = useState(false);
   const pathname = usePathname();
   return (
     <header className="z-10 sticky top-0 bg-[#fff8ee]">
@@ -40,7 +42,7 @@ export default function Navbar({ user }: Props) {
             {user ? (
               <>
                 <span className="mr-3">{user.name}</span>
-                <DropdownCom role={user.authority} />
+                <DropdownCom />
               </>
             ) : (
               <>
@@ -60,8 +62,15 @@ export default function Navbar({ user }: Props) {
             )}
             <button
               data-collapse-toggle="mobile-menu-2"
+              onClick={() => {
+                setOpenNavbar((prev) => !prev);
+              }}
               type="button"
-              className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className={`${
+                openNavbar
+                  ? "bg-yellow-dark text-white hover:bg-yellow-deepDark"
+                  : "bg-yellow-light text-gray-500 hover:bg-gray-100"
+              } inline-flex items-center p-2 ml-1 text-sm rounded-lg lg:hidden focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600`}
               aria-controls="mobile-menu-2"
               aria-expanded="false"
             >
@@ -94,7 +103,9 @@ export default function Navbar({ user }: Props) {
           </div>
           {user && (
             <div
-              className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
+              className={`${
+                openNavbar ? "" : "hidden"
+              } justify-between items-center w-full lg:flex lg:w-auto lg:order-1`}
               id="mobile-menu-2"
             >
               <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
@@ -104,9 +115,9 @@ export default function Navbar({ user }: Props) {
                       <div
                         className={`${
                           pathname === path
-                            ? " bg-btn-default text-white px-7 rounded-md font-bold"
+                            ? " bg-btn-default text-white rounded-md font-bold"
                             : "text-gray-700"
-                        } py-1`}
+                        } py-1 md:w-full md:text-left px-5`}
                       >
                         {name}
                       </div>

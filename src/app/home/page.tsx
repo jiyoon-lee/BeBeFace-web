@@ -123,7 +123,7 @@ export default function page() {
               오늘의 수면시간
             </p>
             <h5 className="mb-2 text-5xl font-semibold tracking-tight text-gray-900 dark:text-white">
-              08:12
+              --:--
             </h5>
           </div>
           <div className={styled.card}>
@@ -132,7 +132,7 @@ export default function page() {
               오늘의 배변횟수
             </p>
             <h5 className="mb-2 text-5xl font-semibold tracking-tight text-gray-900 dark:text-white">
-              3회
+              -회
             </h5>
           </div>
           <div className={styled.card}>
@@ -141,7 +141,7 @@ export default function page() {
               오늘의 분유양
             </p>
             <h5 className="mb-2 text-5xl font-semibold tracking-tight text-gray-900 dark:text-white">
-              60ml
+              --ml
             </h5>
           </div>
         </div>

@@ -8,7 +8,7 @@ type Props = {
 };
 export async function getDiaries(date: string) {
   return axios
-    .get(`/timeline?date=${date}`, {
+    .get(`/timeline?dateTime=${date}`, {
       headers: getHeader(),
     })
     .then(console.log);

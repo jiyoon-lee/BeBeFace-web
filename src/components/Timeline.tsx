@@ -7,12 +7,12 @@ import Shower from "@/assets/images/shower.png";
 import SitterAvatar from "@/assets/images/sitter_avatar.png";
 import Sleep from "@/assets/images/sleep.png";
 import { TimelineResponse } from "@/types";
-import { millisecondsToKoreanTime } from "@/utils/millConvTime";
+import { arrToTime } from "@/utils/millConvTime";
 
 const categoryImg = "w-10 h-10";
 
 export default function Timeline({
-  date,
+  dateTime,
   role,
   content,
   category,
@@ -21,7 +21,7 @@ export default function Timeline({
     <>
       <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
       <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-        {millisecondsToKoreanTime(date)}
+        {arrToTime(dateTime)}
       </time>
       <div className="items-center w-fit p-2.5 pr-4 bg-white border border-gray-200 rounded-lg shadow-sm flex dark:bg-gray-700 dark:border-gray-600">
         <div className="mr-3 shrink-0 flex flex-col justify-center items-center">
@@ -41,7 +41,7 @@ export default function Timeline({
           </span>
         </div>
         {["milk", "poop", "shower", "sleep"].includes(category) && (
-          <div className="shadow-inner rounded-full p-1 bg-yellow-dark mx-2">
+          <div className="shadow-inner rounded-full shrink-0 p-1 bg-yellow-dark mx-2">
             {category === "milk" && (
               <Image src={Milk} className={categoryImg} alt="milk" />
             )}
@@ -57,7 +57,7 @@ export default function Timeline({
           </div>
         )}
         <div>
-          <div className="text-base font-normal text-gray-600 dark:text-gray-400">
+          <div className="text-base break-all font-normal text-gray-600 dark:text-gray-400">
             {content}
           </div>
         </div>

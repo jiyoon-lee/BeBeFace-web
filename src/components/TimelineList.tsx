@@ -8,10 +8,10 @@ type Prop = {
 export default function TimelineList({ timelines }: Prop) {
   return (
     <>
-      <ol className="relative border-s border-gray-200 dark:border-gray-700">
+      <ol className="overflow-hidden relative border-s border-gray-200 dark:border-gray-700">
         {timelines &&
-          timelines.map((timeline) => (
-            <li key={timeline.date} className="mb-5 ms-4">
+          timelines.map((timeline, index) => (
+            <li key={index} className="mb-5 ms-4">
               <Timeline {...timeline} />
             </li>
           ))}

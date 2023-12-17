@@ -9,9 +9,9 @@ import { useUserState } from "@/context/UserContext";
 import { logout } from "@/services/auth";
 import { clearToken } from "@/utils/token";
 
-export default function DropdownCom(role) {
+export default function DropdownCom() {
   const router = useRouter();
-  const { setUser } = useUserState();
+  const { user, setUser } = useUserState();
 
   const logoutHandler = async () => {
     logout().finally(() => {
@@ -26,7 +26,7 @@ export default function DropdownCom(role) {
       dismissOnClick={false}
       renderTrigger={() => (
         <Image
-          src={role === "ROLE_USER" ? SitterAvatar : ParentAvatar}
+          src={user.authority === "ROLE_USER" ? SitterAvatar : ParentAvatar}
           className="w-12 h-12 rounded-full border-2"
           alt="Rounded avatar"
           referrerPolicy="no-referrer"

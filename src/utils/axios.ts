@@ -5,6 +5,7 @@ export const axios = setupInterceptors(
   ax.create({
     baseURL: "http://192.168.0.42:8080",
     // baseURL: "http://localhost:3000/api",
+    maxBodyLength: Infinity,
     timeout: 1000,
     headers: {
       "Content-Type": "application/json",

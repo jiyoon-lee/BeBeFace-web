@@ -8,6 +8,7 @@ type SignupProp = {
   name: string;
   password: string;
   authority: "ROLE_USER" | "ROLE_ADMIN";
+  referenceEmail: string;
 };
 
 type SigninProp = {
@@ -36,4 +37,8 @@ export async function getMe(): Promise<MemberMeResponse> {
   return axios
     .get(`/member/me`, { headers: getHeader() })
     .then((res) => res.data);
+}
+
+export async function setParentEmail(email: string) {
+  return axios.post("/auth/verifyEmail", { referenceEmail: email });
 }

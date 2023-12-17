@@ -10,14 +10,16 @@ import { useAlertState } from "@/context/AlertContext";
 import { useLoadingState } from "@/context/LoadingContext";
 import { signup } from "@/services/auth";
 import { addBaby } from "@/services/baby";
-import { BabyFormData, SignupFormData } from "@/types";
+import { BabyFormData, SignupFormData, SitterFormData } from "@/types";
 
 export default function SignupPage() {
   const { setIsLoading } = useLoadingState();
   const { setAlert } = useAlertState();
   const router = useRouter();
+  // const [disabledBtn, setDisabledBtn] = useState(false);
   const [additionalType, setAdditionalType] = useState("");
   const [isBaby, setIsBaby] = useState(false);
+  const [isMapParent, setIsMapParent] = useState(false);
   const changeAdditionalType = (type: string) => setAdditionalType(type);
   const memberForm = useForm<SignupFormData>({
     mode: "onBlur",
@@ -25,6 +27,29 @@ export default function SignupPage() {
   const babyForm = useForm<BabyFormData>({
     mode: "onBlur",
   });
+  const sitterForm = useForm<SitterFormData>({
+    mode: "onBlur",
+  });
+  // const chkSubmitBtn = (): boolean | undefined => {
+  //   if (memberForm.formState.isValid) {
+  //     if (isBaby) {
+  //       if (babyForm.formState.isValid) return true;
+  //       else return false;
+  //     } else if (isMapParent) {
+  //       if (sitterForm.formState.isValid) return true;
+  //       else false;
+  //     } else return false;
+  //   } else false;
+  // };
+  // useEffect(() => {
+  //   if (chkSubmitBtn()) {
+  //     setDisabledBtn((prev) => !prev);
+  //   }
+  // }, [
+  //   memberForm.formState.isValid,
+  //   babyForm.formState.isValid,
+  //   sitterForm.formState.isValid,
+  // ]);
   const submitForm = async () => {
     setIsLoading(true);
     const { getValues } = memberForm;
@@ -32,12 +57,14 @@ export default function SignupPage() {
     const email = getValues("email");
     const password = getValues("pwd");
     const authorities = getValues("role");
+    const { getValues: getBabyValues } = babyForm;
     try {
       const { memberId } = await signup({
         name,
         email,
         password,
         authority: authorities,
+        referenceEmail: isBaby ? getBabyValues("name") : "",
       });
       if (isBaby) {
         const { getValues } = babyForm;
@@ -49,10 +76,24 @@ export default function SignupPage() {
           birth,
           etc,
           memberId,
-        }).finally(() => {
-          router.push("/auth/signin");
-          setIsLoading(false);
-        });
+        })
+          .then(() => {
+            setAlert({
+              type: "success",
+              message: "회원가입을 완료했습니다.",
+            });
+            router.push("/auth/signin");
+          })
+          .catch((err) => {
+            setAlert({
+              type: "danger",
+              message: "회원가입에 실패하였습니다. 관리자에게 문의해주세요.",
+            });
+            console.log(err);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
       } else {
         router.push("/auth/signin");
         setIsLoading(false);
@@ -97,7 +138,11 @@ export default function SignupPage() {
                   setIsBaby={setIsBaby}
                 />
               ) : (
-                <SitterForm />
+                <SitterForm
+                  sitterForm={sitterForm}
+                  isMapParent={isMapParent}
+                  setIsMapParent={setIsMapParent}
+                />
               )}
             </figure>
           )}

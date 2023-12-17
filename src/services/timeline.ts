@@ -8,7 +8,7 @@ type Props = {
 };
 export async function getTimeline(date: string) {
   return axios
-    .get(`/timelines?date=${date}`, {
+    .get(`/timelines?dateTime=${date}`, {
       headers: getHeader(),
     })
     .then((res) => res.data.reverse());

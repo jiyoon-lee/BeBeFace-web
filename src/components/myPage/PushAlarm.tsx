@@ -26,24 +26,24 @@ export default function PushAlarm() {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    let content = "";
+    let appContent = "";
     switch (category) {
       case "milk":
-        content = "아이가 밥을 먹습니다.";
+        appContent = "아이가 밥을 먹습니다.";
         break;
       case "poop":
-        content = "아이가 배변 했어요.";
+        appContent = "아이가 배변 했어요.";
         break;
       case "sleep":
-        content = "아이가 잠에 들었어요.";
+        appContent = "아이가 잠에 들었어요.";
         break;
       case "shower":
-        content = "아이가 목욕을 했어요.";
+        appContent = "아이가 목욕을 했어요.";
         break;
       default:
-        content = "선택된 카테고리가 없습니다.";
+        appContent = "선택된 카테고리가 없습니다.";
     }
-    pushAlarm(content);
+    pushAlarm(appContent);
     if (user) {
       setTimeline({ memberId: user.memberId, content, category })
         .then(() => {

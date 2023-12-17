@@ -1,11 +1,17 @@
-export const millisecondsToKoreanTime = (milliseconds: number) => {
-  const totalSeconds = Math.floor(milliseconds / 1000);
-  const hours = Math.floor((totalSeconds % 86400) / 3600); // 86400초는 24시간
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-
+export const arrToTime = (dateTime: number[]) => {
   // 시, 분, 초를 두 자리수로 표현하도록 조정
-  const formattedHours = hours.toString().padStart(2, "0");
-  const formattedMinutes = minutes.toString().padStart(2, "0");
+  let hours: string | number = dateTime[3];
+  let minutes: string | number = dateTime[4];
+  let seconds: string | number = dateTime[5];
+  let ampm = "";
+  // 시간이 12 이상일 경우 12를 빼서 12시간제로 변환
+  ampm = hours >= 12 ? "오후" : "오전";
+  hours = hours % 12;
+  hours = hours ? hours : 12; // 0시일 경우 12로 표시
 
-  return `${formattedHours}시 ${formattedMinutes}분`;
+  // 한 자리 수일 경우 앞에 0을 붙이기
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+  return `${ampm} ${hours}시 ${minutes}분 ${seconds}초`;
 };

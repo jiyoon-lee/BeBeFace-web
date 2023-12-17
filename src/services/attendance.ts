@@ -7,7 +7,6 @@ type SetAttendance = {
   memberId: number;
   type: "go" | "leave";
 };
-
 /**
  * 돌보미 출근신청 API
  * @param memberId 돌보미의 ID
@@ -34,16 +33,22 @@ export const setAttendance = async ({ memberId, type }: SetAttendance) => {
 };
 
 export const mapAttendances = (arr: AttendanceResponse[]) => {
-  const result = arr.map(({ member, id, attendance, leaveTime }) => {
-    return {
+  const result = [];
+  for (let i = 0; i < arr.length; i++) {
+    const { attendance, leaveTime, member, id } = arr[i];
+    const temp = {
       name: member.name,
       email: member.email,
       id: id,
-      isGo: areArraysEqual(attendance, leaveTime),
-      date: transDate(leaveTime),
+      isGo: true,
+      date: transDate(attendance),
     };
-  });
-  return result.reverse();
+    result.unshift(temp);
+    if (!areArraysEqual(arr[i].attendance, arr[i].leaveTime)) {
+      result.unshift({ ...temp, isGo: false, date: transDate(leaveTime) });
+    }
+  }
+  return result;
 };
 const transDate = (leaveTime: number[]) => {
   return `${leaveTime[0]}년 ${leaveTime[1]}월 ${leaveTime[2]}일 ${

@@ -16,7 +16,7 @@ export default function SitterInfo() {
   const { setAlert } = useAlertState();
   const { user } = useUserState();
   const { mutate } = useSWRConfig();
-  const [btnDis, setBtnDis] = useState("leave");
+  const [btnType, setBtnType] = useState("go");
   const [attendances, setAttendances] = useState<Attendace[]>();
 
   const { data } = useSWR<AttendanceResponse[]>("/attendance/record/list");
@@ -24,7 +24,8 @@ export default function SitterInfo() {
     if (Array.isArray(data) && data.length > 0) {
       const newArr = mapAttendances(data);
       setAttendances(newArr);
-      setBtnDis(newArr[0].isGo ? "leave" : "go");
+      if (Array.isArray(newArr) && newArr.length > 0)
+        setBtnType(newArr[0].isGo ? "leave" : "go");
     }
   }, [data]);
   const current = new CurrentDateTime();
@@ -56,48 +57,48 @@ export default function SitterInfo() {
   };
   return (
     <div>
-      {user?.authority === "ROLE_USER" && (
-        <div className="mb-3 p-6 bg-white border-gray-300 border-2 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
-          <div className="grid grid-cols-2">
-            <div className="py-5 grid bg-yellow-light content-center border-r-0 border-gray-300 border-2 text-center text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-l-lg w-full">
-              <p className="text-2xl mb-4">
-                <IoIosTime className="inline mr-2" />
-                출퇴근 시간
-              </p>
-              <p className="text-lg">{current.getDate()}</p>
-              <p className="text-xl">{current.getTime()}</p>
-            </div>
-            <div className="flex bg-yellow-light items-center gap-3 p-6 border-gray-300 border-2 justify-center text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-r-lg w-full">
-              <button
-                onClick={() => attendanceHandler("go")}
-                type="button"
-                disabled={btnDis === "go"}
-                className={`${
-                  btnDis === "go"
-                    ? "text-white bg-gray-300"
-                    : "text-gray-900 bg-white hover:bg-yellow-dark"
-                } border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-md px-6 py-5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
-              >
-                <RxEnter className="mr-2" />
-                출근
-              </button>
-              <button
-                onClick={() => attendanceHandler("leave")}
-                type="button"
-                disabled={btnDis === "leave"}
-                className={`${
-                  btnDis === "leave"
-                    ? "text-white bg-gray-300"
-                    : "text-gray-900 bg-white hover:bg-yellow-dark"
-                } border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-md px-6 py-5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
-              >
-                <RxExit className="mr-2" />
-                퇴근
-              </button>
-            </div>
+      {/* {user?.authority === "ROLE_USER" && ( */}
+      <div className="mb-3 p-6 bg-white border-gray-300 border-2 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
+        <div className="grid grid-cols-2">
+          <div className="py-5 grid bg-yellow-light content-center border-r-0 border-gray-300 border-2 text-center text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-l-lg w-full">
+            <p className="text-2xl mb-4">
+              <IoIosTime className="inline mr-2" />
+              출퇴근 시간
+            </p>
+            <p className="text-lg">{current.getDate()}</p>
+            <p className="text-xl">{current.getTime()}</p>
+          </div>
+          <div className="flex bg-yellow-light items-center gap-3 p-6 border-gray-300 border-2 justify-center text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-r-lg w-full">
+            <button
+              onClick={() => attendanceHandler("go")}
+              type="button"
+              disabled={btnType === "leav"}
+              className={`${
+                btnType === "go"
+                  ? "text-gray-900 bg-white hover:bg-yellow-dark"
+                  : "text-white bg-gray-300"
+              } border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-md px-6 py-5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
+            >
+              <RxEnter className="mr-2" />
+              출근
+            </button>
+            <button
+              onClick={() => attendanceHandler("leave")}
+              type="button"
+              disabled={btnType === "go"}
+              className={`${
+                btnType === "leave"
+                  ? "text-gray-900 bg-white hover:bg-yellow-dark"
+                  : "text-white bg-gray-300"
+              } border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-md px-6 py-5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
+            >
+              <RxExit className="mr-2" />
+              퇴근
+            </button>
           </div>
         </div>
-      )}
+      </div>
+      {/* )} */}
       <div className="p-6 bg-white border-gray-300 border-2 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
         {attendances ? (
           attendances.map((attendance) => (
@@ -108,7 +109,11 @@ export default function SitterInfo() {
               } rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
             >
               <h5 className="flex items-center text-md tracking-tight text-gray-900 dark:text-white">
-                <div className="mr-3 relative inline-flex items-center justify-center w-8 h-8 overflow-hidden bg-[#73DBBF] rounded-full dark:bg-gray-600">
+                <div
+                  className={`${
+                    attendance.isGo ? "bg-[#B09DC7]" : "bg-[#73DBBF]"
+                  } mr-3 relative inline-flex items-center justify-center w-8 h-8 overflow-hidden rounded-full dark:bg-gray-600`}
+                >
                   <span className="font-medium text-white dark:text-gray-300">
                     {attendance.isGo ? "출" : "퇴"}
                   </span>

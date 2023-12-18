@@ -28,7 +28,7 @@ export default function DiaryCard({ openModal, onClose }: Props) {
       <Modal size="5xl" show={openModal} onClose={onClose}>
         <Modal.Header>📆 2023년 12월 19일</Modal.Header>
         <Modal.Body>
-          <p className="text-2xl text-center my-3">아기의 기분: 기분 좋음</p>
+          <p className="text-2xl text-center my-3">내 사랑 지윤이</p>
           <div className="grid grid-cols-2 overflow-hidden m-2">
             <div className="bg-yellow-light rounded-l-lg overflow-hidden p-3">
               <TimelineList timelines={timelines} />
@@ -38,7 +38,7 @@ export default function DiaryCard({ openModal, onClose }: Props) {
               <Image src={DiaryTest} alt="diary default image" />
               <div className="p-4 leading-normal">
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                  아기가 일어나서 웃는 모습이 기분 좋았다.
+                  밥도 잘 먹고, 잠도 잘잤네 우리 지윤이~
                 </p>
               </div>
             </div>

@@ -26,7 +26,7 @@ export default function DiaryCard({ openModal, onClose }: Props) {
   return (
     <>
       <Modal size="5xl" show={openModal} onClose={onClose}>
-        <Modal.Header>📆 2023년 12월 15일</Modal.Header>
+        <Modal.Header>📆 2023년 12월 19일</Modal.Header>
         <Modal.Body>
           <p className="text-2xl text-center my-3">아기의 기분: 기분 좋음</p>
           <div className="grid grid-cols-2 overflow-hidden m-2">

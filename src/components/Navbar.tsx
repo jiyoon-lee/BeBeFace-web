@@ -35,7 +35,7 @@ export default function Navbar({ user }: Props) {
     <header className="z-10 sticky top-0 bg-[#fff8ee]">
       <nav className="border-gray-200 px-4 lg:px-6 py-3 dark:bg-gray-800">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <a href="/" className="flex items-center">
+          <a href={`${user ? "/home" : "/"}`} className="flex items-center">
             <Image src={Logo} width={150} alt="BeBeFace Logo" />
           </a>
           <div className="flex items-center lg:order-2">

@@ -16,7 +16,7 @@ export default function SitterInfo() {
   const { setAlert } = useAlertState();
   const { user } = useUserState();
   const { mutate } = useSWRConfig();
-  const [btnType, setBtnType] = useState("go");
+  const [lastType, setLastType] = useState("go");
   const [attendances, setAttendances] = useState<Attendace[]>();
 
   const { data } = useSWR<AttendanceResponse[]>("/attendance/record/list");
@@ -25,7 +25,7 @@ export default function SitterInfo() {
       const newArr = mapAttendances(data);
       setAttendances(newArr);
       if (Array.isArray(newArr) && newArr.length > 0)
-        setBtnType(newArr[0].isGo ? "leave" : "go");
+        setLastType(newArr[0].isGo ? "go" : "leave");
     }
   }, [data]);
   const current = new CurrentDateTime();
@@ -72,9 +72,9 @@ export default function SitterInfo() {
               <button
                 onClick={() => attendanceHandler("go")}
                 type="button"
-                disabled={btnType === "leav"}
+                disabled={lastType === "go"}
                 className={`${
-                  btnType === "go"
+                  lastType === "leave"
                     ? "text-gray-900 bg-white hover:bg-yellow-dark"
                     : "text-white bg-gray-300"
                 } border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-md px-6 py-5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
@@ -85,9 +85,9 @@ export default function SitterInfo() {
               <button
                 onClick={() => attendanceHandler("leave")}
                 type="button"
-                disabled={btnType === "go"}
+                disabled={lastType === "leave"}
                 className={`${
-                  btnType === "leave"
+                  lastType === "go"
                     ? "text-gray-900 bg-white hover:bg-yellow-dark"
                     : "text-white bg-gray-300"
                 } border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-md px-6 py-5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}

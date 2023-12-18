@@ -40,13 +40,13 @@ export default function Calendar() {
                 1
               </td>
               <td
-                className={`border-r px-3 py-2 ${styled.bgHeart}`}
+                className="border-r px-3 py-2"
                 onClick={() => setOpenModal(true)}
               >
                 <span>2</span>
-                <FaImage size={20} className="absolute bottom-2 right-2" />
               </td>
             </tr>
+            {/* 3~9 */}
             <tr className="border-b bg-white border-solid border-[#E8E8E8] h-24">
               {Array.from({ length: 7 }, (v, i) => i + 3).map((index) => (
                 <td
@@ -58,25 +58,32 @@ export default function Calendar() {
                 </td>
               ))}
             </tr>
+            {/* 10~16 */}
             <tr className="border-b bg-white border-solid border-[#E8E8E8] h-24">
               {Array.from({ length: 7 }, (v, i) => i + 10).map((index) => (
-                <td
-                  key={index}
-                  className={`border-r px-3 py-2 ${styled.bgHeart}`}
-                  onClick={() => setOpenModal(true)}
-                >
-                  {index}
-                </td>
-              ))}
-            </tr>
-            <tr className="border-b bg-white border-solid border-[#E8E8E8] h-24">
-              {Array.from({ length: 7 }, (v, i) => i + 17).map((index) => (
                 <td
                   key={index}
                   className="border-r px-3 py-2"
                   onClick={() => setOpenModal(true)}
                 >
                   {index}
+                </td>
+              ))}
+            </tr>
+            {/* 17~23 */}
+            <tr className="border-b bg-white border-solid border-[#E8E8E8] h-24">
+              {Array.from({ length: 7 }, (v, i) => i + 17).map((index) => (
+                <td
+                  key={index}
+                  className={`${
+                    index === 19 ? styled.bgHeart : ""
+                  } border-r px-3 py-2`}
+                  onClick={() => setOpenModal(true)}
+                >
+                  {index}
+                  {index === 19 && (
+                    <FaImage size={20} className="absolute bottom-2 right-2" />
+                  )}
                 </td>
               ))}
             </tr>
@@ -93,7 +100,7 @@ export default function Calendar() {
             </tr>
             <tr className="border-b bg-white border-solid border-[#E8E8E8] h-24">
               <td
-                className={`border-r px-3 py-2 ${styled.bgHeart}`}
+                className="border-r px-3 py-2"
                 onClick={() => setOpenModal(true)}
               >
                 31

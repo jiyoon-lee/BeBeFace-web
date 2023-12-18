@@ -7,9 +7,11 @@ import ErrorStyling from "./ErrorStyling";
 import { BabyFormData } from "@/types";
 
 type Props = {
+  email: string;
   babyForm: UseFormReturn<BabyFormData>;
   isBaby: boolean;
   setIsBaby: (isBaby: boolean) => void;
+  setSitterEmail: (sitterEmail: string) => void;
 };
 
 export default function BabyForm({
@@ -17,8 +19,10 @@ export default function BabyForm({
     register,
     formState: { errors },
   },
+  email,
   isBaby,
   setIsBaby,
+  setSitterEmail,
 }: Props) {
   return (
     <>
@@ -94,6 +98,17 @@ export default function BabyForm({
           </div>
         </form>
       )}
+      <div className="mt-5">
+        <div className="mb-2 block">
+          <Label htmlFor="email" value="돌보미 이메일" />
+        </div>
+        <TextInput
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setSitterEmail(e.target.value)}
+        />
+      </div>
     </>
   );
 }

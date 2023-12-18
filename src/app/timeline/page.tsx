@@ -1,6 +1,6 @@
 "use client";
 import { Label, Textarea, TextInput } from "flowbite-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import TimelineList from "@/components/TimelineList";
 import { useAlertState } from "@/context/AlertContext";
@@ -18,6 +18,7 @@ export default function TimelinePage() {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [file, setFile] = useState<File | undefined>();
+  const fileRef = useRef<HTMLInputElement>(null);
   const [timelines, setTimelines] = useState<TimelineResponse[]>();
   const { data, isLoading } = useSWR<TimelineResponse[]>(
     `/timelines?dateTime=${date.getDateDash()}`
@@ -29,19 +30,14 @@ export default function TimelinePage() {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    setDiary({ file, title, content })
-      .then(() => {
-        setAlert({ type: "success", message: "다이어리가 추가되었습니다." });
-      })
-      .catch(() => {
-        setAlert({ type: "danger", message: "다이어리 추가에 실패했습니다." });
-      })
-      .finally(() => {
-        setContent("");
-        setFile(undefined);
-        setTitle("");
-        setIsLoading(false);
-      });
+    setDiary({ file, title, content }).finally(() => {
+      setAlert({ type: "success", message: "다이어리가 추가되었습니다." });
+      setContent("");
+      setFile(undefined);
+      setTitle("");
+      if (fileRef.current) fileRef.current.value = "";
+      setIsLoading(false);
+    });
   };
   const fileHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
@@ -99,6 +95,7 @@ export default function TimelinePage() {
                           className="mt-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                           id="file_input"
                           type="file"
+                          ref={fileRef}
                           onChange={fileHandler}
                         />
                       </div>

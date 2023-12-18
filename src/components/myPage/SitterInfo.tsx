@@ -57,48 +57,48 @@ export default function SitterInfo() {
   };
   return (
     <div>
-      {/* {user?.authority === "ROLE_USER" && ( */}
-      <div className="mb-3 p-6 bg-white border-gray-300 border-2 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
-        <div className="grid grid-cols-2">
-          <div className="py-5 grid bg-yellow-light content-center border-r-0 border-gray-300 border-2 text-center text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-l-lg w-full">
-            <p className="text-2xl mb-4">
-              <IoIosTime className="inline mr-2" />
-              출퇴근 시간
-            </p>
-            <p className="text-lg">{current.getDate()}</p>
-            <p className="text-xl">{current.getTime()}</p>
-          </div>
-          <div className="flex bg-yellow-light items-center gap-3 p-6 border-gray-300 border-2 justify-center text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-r-lg w-full">
-            <button
-              onClick={() => attendanceHandler("go")}
-              type="button"
-              disabled={btnType === "leav"}
-              className={`${
-                btnType === "go"
-                  ? "text-gray-900 bg-white hover:bg-yellow-dark"
-                  : "text-white bg-gray-300"
-              } border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-md px-6 py-5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
-            >
-              <RxEnter className="mr-2" />
-              출근
-            </button>
-            <button
-              onClick={() => attendanceHandler("leave")}
-              type="button"
-              disabled={btnType === "go"}
-              className={`${
-                btnType === "leave"
-                  ? "text-gray-900 bg-white hover:bg-yellow-dark"
-                  : "text-white bg-gray-300"
-              } border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-md px-6 py-5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
-            >
-              <RxExit className="mr-2" />
-              퇴근
-            </button>
+      {user?.authority === "ROLE_USER" && (
+        <div className="mb-3 p-6 bg-white border-gray-300 border-2 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
+          <div className="grid grid-cols-2">
+            <div className="py-5 grid bg-yellow-light content-center border-r-0 border-gray-300 border-2 text-center text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-l-lg w-full">
+              <p className="text-2xl mb-4">
+                <IoIosTime className="inline mr-2" />
+                출퇴근 시간
+              </p>
+              <p className="text-lg">{current.getDate()}</p>
+              <p className="text-xl">{current.getTime()}</p>
+            </div>
+            <div className="flex bg-yellow-light items-center gap-3 p-6 border-gray-300 border-2 justify-center text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-r-lg w-full">
+              <button
+                onClick={() => attendanceHandler("go")}
+                type="button"
+                disabled={btnType === "leav"}
+                className={`${
+                  btnType === "go"
+                    ? "text-gray-900 bg-white hover:bg-yellow-dark"
+                    : "text-white bg-gray-300"
+                } border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-md px-6 py-5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
+              >
+                <RxEnter className="mr-2" />
+                출근
+              </button>
+              <button
+                onClick={() => attendanceHandler("leave")}
+                type="button"
+                disabled={btnType === "go"}
+                className={`${
+                  btnType === "leave"
+                    ? "text-gray-900 bg-white hover:bg-yellow-dark"
+                    : "text-white bg-gray-300"
+                } border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-md px-6 py-5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700`}
+              >
+                <RxExit className="mr-2" />
+                퇴근
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      {/* )} */}
+      )}
       <div className="p-6 bg-white border-gray-300 border-2 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
         {attendances ? (
           attendances.map((attendance) => (

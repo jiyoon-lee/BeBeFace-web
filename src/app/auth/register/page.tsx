@@ -16,7 +16,7 @@ export default function SignupPage() {
   const { setIsLoading } = useLoadingState();
   const { setAlert } = useAlertState();
   const router = useRouter();
-  // const [disabledBtn, setDisabledBtn] = useState(false);
+  const [sitterEmail, setSitterEmail] = useState("");
   const [additionalType, setAdditionalType] = useState("");
   const [isBaby, setIsBaby] = useState(false);
   const [isMapParent, setIsMapParent] = useState(false);
@@ -30,26 +30,6 @@ export default function SignupPage() {
   const sitterForm = useForm<SitterFormData>({
     mode: "onBlur",
   });
-  // const chkSubmitBtn = (): boolean | undefined => {
-  //   if (memberForm.formState.isValid) {
-  //     if (isBaby) {
-  //       if (babyForm.formState.isValid) return true;
-  //       else return false;
-  //     } else if (isMapParent) {
-  //       if (sitterForm.formState.isValid) return true;
-  //       else false;
-  //     } else return false;
-  //   } else false;
-  // };
-  // useEffect(() => {
-  //   if (chkSubmitBtn()) {
-  //     setDisabledBtn((prev) => !prev);
-  //   }
-  // }, [
-  //   memberForm.formState.isValid,
-  //   babyForm.formState.isValid,
-  //   sitterForm.formState.isValid,
-  // ]);
   const submitForm = async () => {
     setIsLoading(true);
     const { getValues } = memberForm;
@@ -57,14 +37,13 @@ export default function SignupPage() {
     const email = getValues("email");
     const password = getValues("pwd");
     const authorities = getValues("role");
-    const { getValues: getBabyValues } = babyForm;
     try {
       const { memberId } = await signup({
         name,
         email,
         password,
         authority: authorities,
-        referenceEmail: isBaby ? getBabyValues("name") : "",
+        referenceEmail: sitterEmail,
       });
       if (isBaby) {
         const { getValues } = babyForm;
@@ -96,15 +75,19 @@ export default function SignupPage() {
           });
       } else {
         router.push("/auth/signin");
-        setIsLoading(false);
+        setAlert({
+          type: "success",
+          message: "회원가입을 완료했습니다.",
+        });
       }
     } catch (e) {
       setAlert({
         type: "danger",
         message: "회원가입에 실패했습니다. 관리자에게 문의해주세요.",
       });
-      setIsLoading(false);
       memberForm.reset();
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -133,6 +116,8 @@ export default function SignupPage() {
             <figure className="w-96 p-8 bg-white border-b border-gray-200 md:rounded-lg dark:bg-gray-800 dark:border-gray-700">
               {additionalType === "baby" ? (
                 <BabyForm
+                  email={sitterEmail}
+                  setSitterEmail={setSitterEmail}
                   babyForm={babyForm}
                   isBaby={isBaby}
                   setIsBaby={setIsBaby}

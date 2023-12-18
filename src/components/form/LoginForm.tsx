@@ -4,8 +4,10 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useAlertState } from "@/context/AlertContext";
 import { useLoadingState } from "@/context/LoadingContext";
+import { getAlbum, sendTokenToFlask } from "@/services/album";
 import { login } from "@/services/auth";
-import { LoginFormType } from "@/types";
+import { LoginFormType, LoginResponseType } from "@/types";
+import { saveToken } from "@/utils/token";
 
 export default function LoginForm() {
   const { setAlert } = useAlertState();
@@ -20,8 +22,21 @@ export default function LoginForm() {
   const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
     setIsLoading(true);
     login(data)
-      .then(() => {
-        window.location.href = "/home";
+      .then((res: LoginResponseType | void) => {
+        if (res) {
+          saveToken(res.accessToken);
+          sendTokenToFlask(res?.memberId)
+            .then(() => {
+              getAlbum().finally(() => {
+                window.location.href = "/home";
+              });
+            })
+            .catch(() => {
+              window.location.href = "/home";
+            });
+        } else {
+          window.location.href = "/home";
+        }
       })
       .catch(() => {
         setAlert({ type: "danger", message: "로그인에 실패했습니다." });

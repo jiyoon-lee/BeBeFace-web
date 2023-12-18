@@ -1,7 +1,6 @@
-import { MemberMeResponse } from "@/types";
+import { LoginResponseType, MemberMeResponse } from "@/types";
 import { getHeader } from "@/utils/authorization";
 import { axios } from "@/utils/axios";
-import { saveToken } from "@/utils/token";
 
 type SignupProp = {
   email: string;
@@ -20,13 +19,10 @@ export async function signup(user: SignupProp): Promise<MemberMeResponse> {
   return axios.post(`/auth/register`, user).then((res) => res.data);
 }
 
-export async function login(user: SigninProp) {
-  return axios
-    .post(`/auth/login`, user)
-    .then((res) => res.data)
-    .then((data) => {
-      saveToken(data.accessToken);
-    });
+export async function login(
+  user: SigninProp
+): Promise<LoginResponseType | void> {
+  return axios.post(`/auth/login`, user).then((res) => res.data);
 }
 
 export async function logout() {

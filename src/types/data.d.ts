@@ -41,10 +41,14 @@ export type SignupFormData = {
 };
 
 export type LoginResponseType = {
+  memberId: number;
+  email?: string | null;
+  referenceEmail?: string | null;
+  grantType: string;
   accessToken: string;
-  email: string;
+  refreshToken: string;
+  accessTokenExpiresIn: number;
 };
-
 export type AttendanceResponse = {
   attendance: [];
   leaveTime: [];

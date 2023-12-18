@@ -12,7 +12,7 @@ export default function SWRConfigContext({
     <SWRConfig
       value={{
         fetcher: (url: string) =>
-          fetch(`http://192.168.0.42:8080${url}`, {
+          fetch(`http://localhost:8080${url}`, {
             headers: getHeader(),
           }).then((res) => res.json()),
       }}

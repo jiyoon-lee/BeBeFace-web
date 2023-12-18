@@ -15,7 +15,7 @@ type SetAttendance = {
 export const setAttendance = async ({ memberId, type }: SetAttendance) => {
   pushAlarm(`돌보미가 ${type === "leave" ? "퇴근" : "출근"}했습니다.`);
   return await fetcher(
-    `http://192.168.0.42:8080/attendance/record${
+    `http://localhost:8080/attendance/record${
       type === "leave" ? "/leave" : ""
     }`,
     {

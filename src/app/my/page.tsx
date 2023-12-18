@@ -15,7 +15,7 @@ const navList = [
   { name: "baby", title: "우리 아기 정보", icon: LuBaby },
 ];
 export default function MyPage() {
-  const [page, setPage] = useState("alarm");
+  const [page, setPage] = useState("sitter");
   return (
     <div className="md:flex max-w-4xl mx-auto h-full">
       <ul className="basis-1/4 flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0">

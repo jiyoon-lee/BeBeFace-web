@@ -16,7 +16,7 @@ export default function SitterInfo() {
   const { setAlert } = useAlertState();
   const { user } = useUserState();
   const { mutate } = useSWRConfig();
-  const [lastType, setLastType] = useState("go");
+  const [lastType, setLastType] = useState("leave");
   const [attendances, setAttendances] = useState<Attendace[]>();
 
   const { data } = useSWR<AttendanceResponse[]>("/attendance/record/list");

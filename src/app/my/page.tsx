@@ -9,8 +9,8 @@ import MyInfo from "@/components/myPage/MyInfo";
 import PushAlarm from "@/components/myPage/PushAlarm";
 import SitterInfo from "@/components/myPage/SitterInfo";
 const navList = [
-  { name: "alarm", title: "기록하기", icon: TfiWrite },
   { name: "sitter", title: "돌보미 정보", icon: FaBabyCarriage },
+  { name: "alarm", title: "기록하기", icon: TfiWrite },
   { name: "me", title: "내 정보", icon: CgProfile },
   { name: "baby", title: "우리 아기 정보", icon: LuBaby },
 ];

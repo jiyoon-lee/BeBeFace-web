@@ -38,10 +38,7 @@ export default function DiaryCard({ openModal, onClose }: Props) {
               <Image src={DiaryTest} alt="diary default image" />
               <div className="p-4 leading-normal">
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                  오늘은 일찍 일어났다. 아기가 일어나서 웃는 모습이 기분 좋았다.
-                  아침 식사를 준비하고, 우리 가족과 함께 아침 식사를 즐겼다.외출
-                  시간! 아기를 유모차에 태워 공원으로 나갔다. 새로 피어난 꽃들이
-                  보기 좋았다. 아기는 색다른 환경에서 즐거워하는 것 같다.
+                  아기가 일어나서 웃는 모습이 기분 좋았다.
                 </p>
               </div>
             </div>

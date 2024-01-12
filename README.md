@@ -19,7 +19,7 @@
 - 웹 프론트엔드 개발
 
 ### 사용기술
-
+- next.js, typescript, swr, react-hook-form, axios, tailwind, prettier, eslint
 
 ## 설치 및 실행
 ```bash

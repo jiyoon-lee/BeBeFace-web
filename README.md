@@ -41,4 +41,11 @@ https://wondrous-pudding-b2d415.netlify.app
 - 프론트웹서버(Next.js)에서 Firebase FCM을 이용하여 http통신으로 모바일 알림을 요청
 - Firebase에서 토큰이 발급된 디바이스(React Native)로 알림 요청
 - AI에서 아기의 웃음이 감지되면 백서버(SpringBoot)로 http 통신하여 웃는 이미지를 전송, 이 이미지를 전달받은 백서버(Spring Boot)는 DB에 저장
+
+<details>
+<summary> <h2>호호</h2> </summary>
+<div markdown="1">
+![image](https://github.com/jiyoon-lee/BeBeFace-web/assets/59562141/d55e7411-cc1d-472c-9ae7-e219a7a6aa02)
+</div>
+</details>
   

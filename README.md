@@ -43,5 +43,17 @@ https://wondrous-pudding-b2d415.netlify.app
 - AI에서 아기의 웃음이 감지되면 백서버(SpringBoot)로 http 통신하여 웃는 이미지를 전송, 이 이미지를 전달받은 백서버(Spring Boot)는 DB에 저장
 
 ## UI 캡쳐
-<img src="./images/1.png" alt="drawing" width="200"/>
+<img src="./UI캡처/4.png" alt="drawing" width="600"/>
+<img src="./UI캡처/2.png" alt="drawing" width="600"/>
+<img src="./UI캡처/13.png" alt="drawing" width="600"/>
+<img src="./UI캡처/3.png" alt="drawing" width="600"/>
+<img src="./UI캡처/7.png" alt="drawing" width="600"/>
+<img src="./UI캡처/12.png" alt="drawing" width="600"/>
+<img src="./UI캡처/5.png" alt="drawing" width="600"/>
+<img src="./UI캡처/6.png" alt="drawing" width="600"/>
+<img src="./UI캡처/1.png" alt="drawing" width="600"/>
+<img src="./UI캡처/8.png" alt="drawing" width="600"/>
+<img src="./UI캡처/11.png" alt="drawing" width="600"/>
+<img src="./UI캡처/9.png" alt="drawing" width="600"/>
+<img src="./UI캡처/10.png" alt="drawing" width="600"/>
   

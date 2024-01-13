@@ -27,7 +27,15 @@
   
 ### 사용기술
 - next.js, typescript, swr, react-hook-form, axios, tailwind, prettier, eslint
+- next.js를 선택한 이유
+  - React Native를 선택한 이유에도 PWA을 만들수 있고 React Native를 통해 크로스 플랫폼 앱을 만들 수 있지만, 개발 진행중 카메라 기능이 필요할지도 모르는 일부 불확실한 부분이 있었으므로 PWA보다 디바이스의 활용이 훨씬 자유로운 React Native를 선택
+  - 아이의 표정이 감지되면 앱으로 메시지를 보내주어야 하는데 이것을 어디선가 받고 다시 앱에 메시지를 보내는 로직이 필요. 이러한 처리를 위해서는 서버가 필요했고 서버로써의 역할도 하며 프런트 UI의 간편하게 개발할 수 있는 프런트의 역할도 하는 Next.js를 선택
+  - Vue의 Nuxt.js와 React의 Next.js 중에서 Nextjs를 선택한 이유는 Mobile App을 크로스 플랫폼 앱인 React Native로 만들기로 하여 Next.js와 React Native는 둘 다 React를 기반으로 하여 러닝커브가 적은 Next.js를 선택
 
+### 프로젝트를 진행하면서 어려웠던 점
+- 백엔드는 클라우드가 아닌 개인 PC에 환경 구축하여 통신이 어려움
+- 같은 와이파이를 사용하였기 때문에 IP로 접속하여 테스트를 진행하였으나 백앤드 개발자가 부재중일 때는 테스트가 어려움
+- 이를 해결하기 위해 Node.js로 mock api를 구현하여 테스트를 진행
 
 
 ## 설치 및 실행
